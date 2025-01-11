@@ -104,7 +104,7 @@ export default function RevenueCard() {
           <Skeleton className="h-10 w-full" />
         ) : (
           <div className="text-3xl  text-green-600 font-bold">
-            ${totalRevenue?.toLocaleString("en-US", { minimumFractionDigits: 2 }) - totalExpense?.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+            ${(totalRevenue?.toLocaleString("en-US", { minimumFractionDigits: 2 }) - totalExpense?.toLocaleString("en-US", { minimumFractionDigits: 2 })).toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </div>
         )}
          <span className="mt-2">Total Profit</span>

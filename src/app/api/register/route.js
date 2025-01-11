@@ -1,168 +1,92 @@
 import connectDB from "@/lib/mongodb"; // Import database connection
-import Sales from "@/models/salesmodel"; // Import the Sales model 
+import User from "@/models/userModel"; // Import the User model
 import { NextResponse } from "next/server";
 
 // Ensure database connection is awaited
 await connectDB();
 
-/**
- * POST: Add a new sale
- */
 export async function POST(request) {
   try {
     // Parse request body
+    console.log(request)
     const reqBody = await request.json();
-    const { userid, productid, productName, count } = reqBody;
+    const { fullName, userName, password } = reqBody;
+   
 
+     console.log(fullName, userName, password);
     // Validate input fields
-    if (!userid || !productid || !productName || count == null) {
+    if (!fullName || !userName || !password) {
       return NextResponse.json(
-        { error: "All fields (userid, productid, productName, count) are required" },
+        { error: "Name, email, and password are required" },
         { status: 400 }
       );
     }
 
-    // Create a new sale instance
-    const newSale = new Sales({
-      userid,
-      productid,
-      productName,
-      count,
+   // Check if the email already exists in the database
+    const existingUser = await User.findOne({ userName });
+    if (existingUser) {
+      return NextResponse.json(
+        { error: "User with this email already exists" },
+        { status: 400 }
+      );
+    }
+
+   
+    // Create a new user instance
+    const newUser = new User({
+      fullName,
+      userName,
+      password,
     });
 
-    // Save the new sale to the database
-    const savedSale = await newSale.save();
+  
 
+    // Save the new user to the database
+    const savedUser = await newUser.save();
+
+    console.log("New user:" + savedUser);
+
+    // Return a success response
     return NextResponse.json({
-      message: "Sale added successfully",
+      message: "User registered successfully",
       success: true,
-      sale: savedSale,
+      user: {
+        id: savedUser._id,
+        userName: savedUser.userName,
+        fullName: savedUser.fullName,
+      },
     });
   } catch (error) {
-    console.error("Error adding sale:", error);
+    console.error("Error in user registration:", error);
     return NextResponse.json(
-      { error: "Internal server error", message: error.message },
+      { error: "Internal serverddd error", message: error.message },
       { status: 500 }
     );
   }
 }
 
-/**
- * GET: Fetch all sales
- */
 export async function GET() {
-  try {
-    // Fetch all sales from the database
-    const sales = await Sales.find();
-
-    return NextResponse.json({
-      message: "Sales fetched successfully",
-      success: true,
-      sales: sales.map((sale) => ({
-        id: sale._id,
-        userid: sale.userid,
-        productid: sale.productid,
-        productName: sale.productName,
-        count: sale.count,
-        createdAt: sale.createdAt,
-        updatedAt: sale.updatedAt,
-      })),
-    });
-  } catch (error) {
-    console.error("Error fetching sales:", error);
-    return NextResponse.json(
-      { error: "Internal server error", message: error.message },
-      { status: 500 }
-    );
+    try {
+      // Fetch all users from the database
+      const users = await User.find();
+  
+      // Return the user data as JSON
+      return NextResponse.json({
+        message: "Users fetched successfully",
+        success: true,
+        users: users.map((user) => ({
+          id: user._id,
+          fullName: user.fullName,
+          userName: user.userName,
+          password: user.password, // For production, don't send plain passwords.
+        })),
+      });
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      return NextResponse.json(
+        { error: "Internal server error", message: error.message },
+        { status: 500 }
+      );
+    }
   }
-}
-
-/**
- * DELETE: Remove a sale by ID
- */
-export async function DELETE(request) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get("id"); // Expecting ?id=<saleId>
-
-    if (!id) {
-      return NextResponse.json(
-        { error: "Sale ID is required" },
-        { status: 400 }
-      );
-    }
-
-    const deletedSale = await Sales.findByIdAndDelete(id);
-
-    if (!deletedSale) {
-      return NextResponse.json(
-        { error: "Sale not found" },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json({
-      message: "Sale deleted successfully",
-      success: true,
-      sale: deletedSale,
-    });
-  } catch (error) {
-    console.error("Error deleting sale:", error);
-    return NextResponse.json(
-      { error: "Internal server error", message: error.message },
-      { status: 500 }
-    );
-  }
-}
-
-/**
- * PUT: Update a sale by ID
- */
-export async function PUT(request) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get("id"); // Expecting ?id=<saleId>
-
-    if (!id) {
-      return NextResponse.json(
-        { error: "Sale ID is required" },
-        { status: 400 }
-      );
-    }
-
-    const reqBody = await request.json();
-    const { userid, productid, productName, count } = reqBody;
-
-    if (!userid && !productid && !productName && count == null) {
-      return NextResponse.json(
-        { error: "At least one field (userid, productid, productName, count) must be provided for update" },
-        { status: 400 }
-      );
-    }
-
-    const updatedSale = await Sales.findByIdAndUpdate(
-      id,
-      { userid, productid, productName, count },
-      { new: true } // Return the updated document
-    );
-
-    if (!updatedSale) {
-      return NextResponse.json(
-        { error: "Sale not found" },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json({
-      message: "Sale updated successfully",
-      success: true,
-      sale: updatedSale,
-    });
-  } catch (error) {
-    console.error("Error updating sale:", error);
-    return NextResponse.json(
-      { error: "Internal server error", message: error.message },
-      { status: 500 }
-    );
-  }
-}
+  
