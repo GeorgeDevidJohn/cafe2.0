@@ -15,7 +15,7 @@ export async function GET(request) {
       filter = {
         $expr: {
           $eq: [
-            { $substr: ["$dateandtime", 0, 10] }, // Extract "YYYY-MM-DD" part from the ISO date string
+            { $substr: ["$createdAt", 0, 10] }, // Extract "YYYY-MM-DD" part from the ISO date string
             date,
           ],
         },

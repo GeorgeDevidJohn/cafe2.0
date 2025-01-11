@@ -100,9 +100,9 @@ export default function SalesComponent() {
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
-          {sales.map((sale) => (
-            <TableRow key={sale._id}>
+        <TableBody >
+        {sales.map((sale, index) => (
+    <TableRow key={sale._id || index}>
               <TableCell>{sale.productName}</TableCell>
               <TableCell>{sale.count || 0}</TableCell>
               <TableCell className="text-right">

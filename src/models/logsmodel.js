@@ -13,12 +13,9 @@ const logSchema = new mongoose.Schema({
     message: {
         type: String,
         required: true
-    },
-    dateandtime: {
-        type: String,
-        required: true
     }
-});
+},{ timestamps: true }
+);
 
 const Logs =  mongoose.models.logs || mongoose.model("logs", logSchema);
 

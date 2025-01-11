@@ -2,7 +2,7 @@
 import * as React from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { Calendar } from "@/components/ui/calendar"
-import { format, subDays } from "date-fns"
+import { add, format, subDays } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -37,12 +37,12 @@ import {
 } from "@/components/ui/card"
 
 // Define frameworks array
-const frameworks = [
-  { value: "react", label: "React" },
-  { value: "vue", label: "Vue.js" },
-  { value: "angular", label: "Angular" },
-  { value: "svelte", label: "Svelte" },
-];
+// const frameworks = [
+//   { value: "react", label: "React" },
+//   { value: "vue", label: "Vue.js" },
+//   { value: "angular", label: "Angular" },
+//   { value: "svelte", label: "Svelte" },
+// ];
 
 export default function Logs() {
   const [open, setOpen] = React.useState(false)
@@ -56,7 +56,8 @@ export default function Logs() {
       let url = "/api/logbydate";
       if (date) {
         // Format the selected date into a string (e.g., "2025-01-07")
-        const formattedDate = format(date, "yyyy-MM-dd");
+        const nextdate = add(date, { days: 1 });
+        const formattedDate = format(nextdate, "yyyy-MM-dd");
         url = `/api/logbydate?date=${formattedDate}`; // Pass date as query param
       }
 
@@ -82,7 +83,7 @@ export default function Logs() {
             <CardHeader>
               <CardTitle className="text-2xl">Logs</CardTitle>
               <div className="flex gap-4">
-                <Popover open={open} onOpenChange={setOpen}>
+                {/* <Popover open={open} onOpenChange={setOpen}>
                   <PopoverTrigger asChild>
                     <Button
                       variant="outline"
@@ -124,7 +125,7 @@ export default function Logs() {
                       </CommandList>
                     </Command>
                   </PopoverContent>
-                </Popover>
+                </Popover> */}
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
@@ -160,14 +161,14 @@ export default function Logs() {
                     <TableHead className="text-right">Date and Time</TableHead>
                   </TableRow>
                 </TableHeader>
-                <TableBody>
+                <TableBody >
                   {logs.map((log, index) => (
                     <TableRow key={index}>
                       <TableCell>{log.role}</TableCell>
                       <TableCell>{log.name}</TableCell>
                       <TableCell className="text-right">{log.message}</TableCell>
                       <TableCell className="text-right">
-                        {log.dateandtime ? format(new Date(log.dateandtime), "PPpp") : "N/A"}
+                        {log.createdAt ? format(new Date(log.createdAt), "PPpp") : "N/A"}
                       </TableCell>
                     </TableRow>
                   ))}

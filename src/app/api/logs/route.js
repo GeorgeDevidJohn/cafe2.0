@@ -1,5 +1,6 @@
 import connectDB from "@/lib/mongodb"; // Ensure database connection is handled
 import Logs from "@/models/logsmodel"; // Import the Logs model
+import { formatDate } from "date-fns";
 import { NextResponse } from "next/server";
 
 await connectDB();
@@ -19,13 +20,10 @@ export async function POST(request) {
       );
     }
 
-    // Create a new log entry
-    const currentDateTime = new Date().toISOString();
     const newLog = new Logs({
       name,
       role,
-      message,
-      dateandtime: currentDateTime,
+      message
     });
 
     // Save the log entry to the database
@@ -48,7 +46,7 @@ export async function GET() {
       console.log("Fetching logs...");
   
       // Retrieve logs from the database
-      const logs = await Logs.find({}).sort({ dateandtime: -1 }); // Sort by date, most recent first
+      const logs = await Logs.find({}).sort({ createdAt: -1 }); // Sort by date, most recent first
   
       console.log("Logs fetched successfully:", logs);
   
