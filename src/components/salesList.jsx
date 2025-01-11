@@ -63,8 +63,8 @@ export default function SalesComponent() {
       if (data.success) {
         // Update the state to reflect changes
         onChangeLog(selectedSale.productName,newCount)
-        alert("Sale updated successfully!");
         handleDialogClose();
+        window.location.reload();
       } else {
         alert("Failed to update sale: " + data.error);
       }

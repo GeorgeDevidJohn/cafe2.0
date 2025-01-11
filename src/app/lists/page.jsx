@@ -20,14 +20,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Edit, Trash2 } from "lucide-react";
 import SalesComponent from "@/components/salesList";
-import { on } from "events";
 
 export default function SalesPage() {
   const [products, setProducts] = useState([]);
   const [currentProduct, setCurrentProduct] = useState(null);
-  const [count, setCount] = useState(null);
+  const [count, setCount] = useState(""); // Initialize with an empty string to avoid uncontrolled input issues
 
-  // Fetch active products from the API
   useEffect(() => {
     async function fetchActiveProducts() {
       try {
@@ -43,7 +41,6 @@ export default function SalesPage() {
       }
     }
 
- 
     fetchActiveProducts();
   }, []);
 
@@ -62,25 +59,22 @@ export default function SalesPage() {
         body: JSON.stringify({
           productid: productId,
           productName: productName,
-          count: count,
+          count: parseInt(count, 10),
         }),
       });
-      onChangeLog(productName,count)
-      const data = await response.json();
 
+      onChangeLog(productName, count);
+
+      const data = await response.json();
       if (data.success) {
-        // Update the local product state
         const updatedProductList = products.map((product) =>
           product._id === productId
-            ? { ...product, soldCount: (product.soldCount || 0) + count }
+            ? { ...product, soldCount: (product.soldCount || 0) + parseInt(count, 10) }
             : product
         );
         setProducts(updatedProductList);
-        setCount(1);
+        setCount(""); // Reset the count field to an empty string
         setCurrentProduct(null);
-        alert("Sale added successfully.");
-
-        // Update product count in the database
         updateProductCount(productId, count);
       } else {
         alert(`Failed to add sale: ${data.error}`);
@@ -100,14 +94,12 @@ export default function SalesPage() {
         },
         body: JSON.stringify({
           productid: productId,
-          count: count,
+          count: parseInt(count, 10),
         }),
       });
 
       const data = await response.json();
-
       if (data.success) {
-        alert("Product table updated successfully.");
         window.location.reload();
       } else {
         alert(`Failed to update product: ${data.error}`);
@@ -118,9 +110,7 @@ export default function SalesPage() {
     }
   };
 
-  
-
-  async function onChangeLog(prodname,cnt){
+  async function onChangeLog(prodName, cnt) {
     const response = await fetch("/api/logs", {
       method: "POST",
       headers: {
@@ -129,17 +119,16 @@ export default function SalesPage() {
       body: JSON.stringify({
         name: "Bivin",
         role: "Admin",
-        message: "Amal have sold "+ cnt+ " of "+ prodname ,
+        message: `Amal has sold ${cnt} of ${prodName}`,
       }),
     });
-  
+
     const data = await response.json();
     console.log(data);
-    }
+  }
 
   return (
     <div className="p-6 mt-16 space-y-8">
-      {/* Product Tiles */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {products.map((product) => (
           <Card key={product._id} className="hover:shadow-lg">
@@ -152,7 +141,7 @@ export default function SalesPage() {
                 <DialogTrigger asChild>
                   <Button className="w-full bg-blue-500 text-white">Add Sale</Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[400px] top-[16rem] p-4  max-w-[340px] rounded-xl" >
+                <DialogContent className="sm:max-w-[400px] top-[16rem] p-4 max-w-[340px] rounded-xl">
                   <DialogHeader>
                     <DialogTitle>Add Sale</DialogTitle>
                     <DialogDescription>
@@ -164,7 +153,7 @@ export default function SalesPage() {
                       type="number"
                       min={1}
                       value={count}
-                      onChange={(e) => setCount(Number(e.target.value))}
+                      onChange={(e) => setCount(e.target.value)}
                       placeholder="Enter count"
                     />
                     <Button
@@ -181,10 +170,8 @@ export default function SalesPage() {
         ))}
       </div>
 
-      {/* Sales Table */}
       <div className="overflow-auto">
         <SalesComponent />
-     
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -21,9 +22,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useRouter } from "next/navigation"; // Use Next.js router
+import { useRouter } from "next/navigation";
 
-// Zod Schema
 const formSchema = z.object({
   productName: z.string().nonempty({
     message: "Product Name is required",
@@ -41,47 +41,49 @@ const formSchema = z.object({
 });
 
 export default function AddProduct() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const router = useRouter();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      productName: "",
-      salePrice: 0, // Set undefined to trigger validation
-      costPrice: 0, // Set undefined to trigger validation
-      count: 0,
+      productName: "", // Always initialize as a string
+      salePrice: 0, // Always initialize as a number
+      costPrice: 0,
+      count: 1,
       active: true,
     },
   });
 
-  async function onChangeLog(values){
-  const response = await fetch("/api/logs", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: "Bivin",
-      role: "Admin",
-      message: "Bivin have added "+ values.productName + " to the product list",
-    }),
-  });
+  async function onChangeLog(values) {
+    const response = await fetch("/api/logs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: "Bivin",
+        role: "Admin",
+        message:
+          "Bivin has added " + values.productName + " to the product list",
+      }),
+    });
 
-  const data = await response.json();
-  console.log(data);
+    const data = await response.json();
+    console.log(data);
   }
 
-  // Handle Form Submission
   async function onSubmit(values) {
     const response = await fetch("/api/product", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     });
- 
+
     if (response.ok) {
-      console.log("all  added successfully");
-      onChangeLog(values)
+      console.log("All added successfully");
+      await onChangeLog(values);
+      setIsDialogOpen(false);
       window.location.reload();
     } else {
       console.error("Failed to add product");
@@ -89,9 +91,13 @@ export default function AddProduct() {
   }
 
   return (
-    <Dialog>
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-orange-500 text-white" variant="outline">
+        <Button
+          onClick={() => setIsDialogOpen(true)}
+          className="bg-orange-500 text-white"
+          variant="outline"
+        >
           Add Product
         </Button>
       </DialogTrigger>
@@ -102,7 +108,6 @@ export default function AddProduct() {
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {/* Product Name */}
             <FormField
               control={form.control}
               name="productName"
@@ -116,8 +121,6 @@ export default function AddProduct() {
                 </FormItem>
               )}
             />
-
-            {/* Sale Price */}
             <FormField
               control={form.control}
               name="salePrice"
@@ -131,8 +134,6 @@ export default function AddProduct() {
                 </FormItem>
               )}
             />
-
-            {/* Cost Price */}
             <FormField
               control={form.control}
               name="costPrice"
@@ -146,8 +147,6 @@ export default function AddProduct() {
                 </FormItem>
               )}
             />
-
-            {/* Count */}
             <FormField
               control={form.control}
               name="count"
@@ -161,7 +160,6 @@ export default function AddProduct() {
                 </FormItem>
               )}
             />
-
             <Button type="submit" className="w-full">
               Submit
             </Button>

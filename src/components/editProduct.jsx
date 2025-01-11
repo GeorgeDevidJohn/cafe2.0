@@ -78,7 +78,7 @@ export default function EditProduct({ product, onProductUpdate }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...product, ...values }),
       });
-
+     
       if (response.ok) {
         console.log("Product updated successfully");
         onChangeLog(values)

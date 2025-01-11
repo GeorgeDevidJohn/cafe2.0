@@ -46,9 +46,10 @@ const handleSubmit = async (e) => {
 
     const data = await response.json();
     console.log(data);
+    setOpen(false);
     onChangeLog(data.product)
     if (response.ok && data.success) {
-      alert("Item count updated successfully");
+     
       setCount(0);
       setOpen(false);
       window.location.reload();
