@@ -73,7 +73,7 @@ export default function ProductMonth() {
   }, []);
 
   return (
-    <Card>
+    <Card className="mt-4">
       <CardHeader>
         <CardTitle>Weekly Product Sales</CardTitle>
         <CardDescription>{new Date().toLocaleString("default", { month: "long", year: "numeric" })}</CardDescription>

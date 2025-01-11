@@ -66,10 +66,10 @@ export default function SalesChart() {
 
   return (
     <>
-    <div className="flex min-h-full flex-col justify-center px-6 py-16 lg:px-8">
+    <div className="flex min-h-full flex-col justify-center px-6 pt-16 lg:px-8">
     <RevenueCard/>
       <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
-        <Card className="mt-10">
+        <Card className="mt-4">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
@@ -130,7 +130,7 @@ export default function SalesChart() {
       </div>
       
     </div>
-    <div className="flex min-h-full flex-col justify-center px-6  lg:px-1">
+    <div className="flex min-h-full flex-col justify-center px-6   lg:px-1">
     <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
     <ProductMonth/> 
     </div>
