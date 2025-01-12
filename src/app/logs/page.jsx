@@ -56,8 +56,8 @@ export default function Logs() {
       let url = "/api/logbydate";
       if (date) {
         // Format the selected date into a string (e.g., "2025-01-07")
-        const nextdate = add(date, { days: 1 });
-        const formattedDate = format(nextdate, "yyyy-MM-dd");
+     
+        const formattedDate = format(date, "yyyy-MM-dd");
         url = `/api/logbydate?date=${formattedDate}`; // Pass date as query param
       }
 
@@ -65,7 +65,7 @@ export default function Logs() {
         const response = await fetch(url, { method: "GET" })
         const data = await response.json()
         if (data.success) {
-          setLogs(data.logs)
+          setLogs(data.logs.reverse()) // Reverse the logs to show the latest first
         }
       } catch (error) {
         console.error("Error fetching logs:", error)

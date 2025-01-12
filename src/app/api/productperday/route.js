@@ -5,30 +5,30 @@ import { startOfDay, endOfDay } from "date-fns";
 
 // Ensure the database connection is awaited
 await connectDB();
-
 export async function GET(req) {
   try {
     // Parse query parameters for the date
     const { searchParams } = new URL(req.url);
     const date = searchParams.get("date"); // Expecting format "YYYY-MM-DD"
 
-    let sales;
-
+    let filter = {};
     if (date) {
-      // Parse the date and calculate the start and end of the day
-      const targetDate = new Date(date);
-      const startOfTargetDate = startOfDay(targetDate);
-      const endOfTargetDate = endOfDay(targetDate);
+      filter = {
+        $expr: {
+          $eq: [
+            { $substr: ["$createdAt", 0, 10] }, // Extract "YYYY-MM-DD" part from the ISO date string
+            date,
+          ],
+        },
+      };
+    }
 
+    let sales;
+    if (date) {
       // Fetch total sales grouped by product for the specified date
       sales = await Sales.aggregate([
         {
-          $match: {
-            createdAt: {
-              $gte: startOfTargetDate,
-              $lte: endOfTargetDate,
-            },
-          },
+          $match: filter,
         },
         {
           $group: {
