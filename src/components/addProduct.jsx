@@ -23,6 +23,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
+import getUser from "@/lib/getuser";
 
 const formSchema = z.object({
   productName: z.string().nonempty({
@@ -56,16 +57,17 @@ export default function AddProduct() {
   });
 
   async function onChangeLog(values) {
+     const userdata = await getUser()
     const response = await fetch("/api/logs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "Bivin",
-        role: "Admin",
+        name: userdata.fullName,
+        role: userdata.role,
         message:
-          "Bivin has added " + values.productName + " to the product list",
+        userdata.fullName +  " has added " + values.productName + " to the product list",
       }),
     });
 
@@ -91,6 +93,7 @@ export default function AddProduct() {
   }
 
   return (
+    <>
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
         <Button
@@ -167,5 +170,6 @@ export default function AddProduct() {
         </Form>
       </DialogContent>
     </Dialog>
+    </>
   );
 }

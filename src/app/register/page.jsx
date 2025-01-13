@@ -20,6 +20,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import NavigationButtons from "@/components/nav";
 
 // Zod Schema
 const formSchema = z.object({
@@ -31,7 +32,14 @@ const formSchema = z.object({
   }),
   password: z.string().min(6, {
     message: "Password must be at least 6 characters long",
-  }),
+  })
+  .min(8, { message: 'Be at least 8 characters long' })
+  .regex(/[a-zA-Z]/, { message: 'Contain at least one letter.' })
+  .regex(/[0-9]/, { message: 'Contain at least one number.' })
+  .regex(/[^a-zA-Z0-9]/, {
+    message: 'Contain at least one special character.',
+  })
+  .trim(),
 });
 
 export default function Register() {
@@ -62,6 +70,9 @@ export default function Register() {
   }
 
   return (
+    <>
+    <NavigationButtons/>
+   
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
@@ -132,5 +143,6 @@ export default function Register() {
         </Card>
       </div>
     </div>
+    </>
   );
 }

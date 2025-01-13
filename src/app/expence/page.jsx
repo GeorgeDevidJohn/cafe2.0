@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
+import  NavigationButtons  from "@/components/nav";
 import {
   Card,
   CardHeader,
@@ -101,6 +102,7 @@ export default function ExpenseTracker() {
 
   return (
     <>
+     <NavigationButtons/>
       <Card className="max-w-4xl mx-auto mt-10 h-full p-6">
         <CardHeader>
           <CardTitle>Expense Tracker</CardTitle>

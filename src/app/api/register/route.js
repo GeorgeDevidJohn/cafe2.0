@@ -1,6 +1,7 @@
 import connectDB from "@/lib/mongodb"; // Import database connection
 import User from "@/models/userModel"; // Import the User model
 import { NextResponse } from "next/server";
+import bcrypt from 'bcryptjs';
 
 // Ensure database connection is awaited
 await connectDB();
@@ -11,7 +12,7 @@ export async function POST(request) {
     console.log(request)
     const reqBody = await request.json();
     const { fullName, userName, password } = reqBody;
-   
+     
 
      console.log(fullName, userName, password);
     // Validate input fields
@@ -31,12 +32,13 @@ export async function POST(request) {
       );
     }
 
-   
+    const hashedPassword = await bcrypt.hash(password, 10);
     // Create a new user instance
     const newUser = new User({
       fullName,
       userName,
-      password,
+      role:"employee",
+      password : hashedPassword,
     });
 
   
@@ -53,6 +55,7 @@ export async function POST(request) {
       user: {
         id: savedUser._id,
         userName: savedUser.userName,
+        role:savedUser.role,
         fullName: savedUser.fullName,
       },
     });
@@ -78,6 +81,7 @@ export async function GET() {
           id: user._id,
           fullName: user.fullName,
           userName: user.userName,
+          role: user.role,
           password: user.password, // For production, don't send plain passwords.
         })),
       });

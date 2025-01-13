@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Edit } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import getUser from "@/lib/getuser";
 
 export default function SalesComponent() {
   const [sales, setSales] = useState([]);
@@ -74,15 +75,16 @@ export default function SalesComponent() {
     }
   };
   async function onChangeLog(prodname,cnt){
+      const userdata = await getUser()
     const response = await fetch("/api/logs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "Bivin",
-        role: "Admin",
-        message: "Amal have updated "+ prodname + " to  "+ cnt + " in the sales list",
+        name: userdata.fullName,
+        role: userdata.role,
+        message:  userdata.fullName + " have updated "+ prodname + " to  "+ cnt + " in the sales list",
       }),
     });
   

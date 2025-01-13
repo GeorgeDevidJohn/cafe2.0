@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import getUser from "@/lib/getuser";
 
 export default function AddItem({ productId, onItemAdded }) {
 const [count, setCount] = useState(0);
@@ -18,15 +19,20 @@ const [open, setOpen] = useState(false);
 
 
 async function onChangeLog(values){
+
+  console.log("VALUES ARE" + values);
+  const userdata =  await getUser()
+  console.log("VALUES ARE USRES" + userdata);
+  console.log(userdata);
   const response = await fetch("/api/logs", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: "Bivin",
-      role: "Admin",
-      message: "Bivin have updated the count of "+ values.productName + " to " + values.count,
+      name: userdata.fullName,
+      role: userdata.role,
+      message:  userdata.fullName + " have updated the count of "+ values.productName + " to " + values.count,
     }),
   });
 }

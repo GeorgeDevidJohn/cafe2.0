@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Edit, Trash2 } from "lucide-react";
 import SalesComponent from "@/components/salesList";
+import NavigationButtons from "@/components/nav";
 
 export default function SalesPage() {
   const [products, setProducts] = useState([]);
@@ -128,6 +129,9 @@ export default function SalesPage() {
   }
 
   return (
+    <>
+       <NavigationButtons/>
+   
     <div className="p-6 mt-16 space-y-8">
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {products.map((product) => (
@@ -174,5 +178,6 @@ export default function SalesPage() {
         <SalesComponent />
       </div>
     </div>
+    </>
   );
 }

@@ -18,6 +18,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import NavigationButtons from "@/components/nav";
 
 export default function Users() {
   const [users, setUsers] = React.useState([]);
@@ -45,6 +46,7 @@ export default function Users() {
 
   return (
     <>
+    <NavigationButtons/>
       <div className="flex min-h-full flex-col justify-center px-6 py-16 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
           <Card className="mt-10">
@@ -64,7 +66,8 @@ export default function Users() {
                   <TableRow>
                     <TableHead>Full Name</TableHead>
                     <TableHead>User Name</TableHead>
-                    <TableHead className="text-right">Password</TableHead>
+                    <TableHead>Role</TableHead>
+                   
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -73,7 +76,8 @@ export default function Users() {
                       <TableRow key={user.id}>
                         <TableCell>{user.fullName}</TableCell>
                         <TableCell>{user.userName}</TableCell>
-                        <TableCell className="text-right">{user.password}</TableCell>
+                        <TableCell>{user.role}</TableCell>
+                       
                       </TableRow>
                     ))
                   ) : (

@@ -15,6 +15,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import NavigationButtons from "@/components/nav";
 
 const handleProductUpdate = (updatedProduct) => {
     setProducts((prevProducts) =>
@@ -98,6 +99,8 @@ export default function Product() {
 
     return (
         <>
+        <NavigationButtons/>
+      
             <div className="flex min-h-full flex-col justify-center px-6 py-16 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
                     <Card className="mt-10">
@@ -173,6 +176,7 @@ export default function Product() {
                     </Card>
                 </div>
             </div>
+            
         </>
     );
 }

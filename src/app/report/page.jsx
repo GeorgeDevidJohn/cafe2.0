@@ -20,6 +20,7 @@ import { format, getMonth, getYear, startOfMonth } from "date-fns";
 import ProductMonth from "@/components/productmonth";
 import Productperday from "@/components/productperday";
 import RevenueCard from "@/components/profit";
+import NavigationButtons from "@/components/nav";
 
 const chartConfig = {
   desktop: {
@@ -66,6 +67,7 @@ export default function SalesChart() {
 
   return (
     <>
+    <NavigationButtons/>
     <div className="flex min-h-full flex-col justify-center px-6 pt-16 lg:px-8">
     <RevenueCard/>
       <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
