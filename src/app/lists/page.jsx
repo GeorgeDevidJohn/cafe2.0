@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Edit, Trash2 } from "lucide-react";
 import SalesComponent from "@/components/salesList";
 import NavigationButtons from "@/components/nav";
+import getUser from "@/lib/getuser";
 
 export default function SalesPage() {
   const [products, setProducts] = useState([]);
@@ -112,15 +113,17 @@ export default function SalesPage() {
   };
 
   async function onChangeLog(prodName, cnt) {
+
+    const userdata = await getUser();
     const response = await fetch("/api/logs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "Bivin",
-        role: "Admin",
-        message: `Amal has sold ${cnt} of ${prodName}`,
+        name: userdata.fullName,
+        role: userdata.role,
+        message: userdata.fullName + ` has sold ${cnt} of ${prodName}`,
       }),
     });
 
