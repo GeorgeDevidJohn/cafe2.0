@@ -59,6 +59,7 @@ export default function EditProduct({ product, onProductUpdate }) {
         message:  userdata.fullName + " have updated the details of "+ values.productName ,
       }),
     });
+    window.location.reload();
   }
   const { reset } = form;
 
@@ -84,7 +85,7 @@ export default function EditProduct({ product, onProductUpdate }) {
       if (response.ok) {
         console.log("Product updated successfully");
         onChangeLog(values)
-        window.location.reload();
+       
       } else {
         console.error("Failed to update product");
       }

@@ -65,7 +65,7 @@ export default function SalesComponent() {
         // Update the state to reflect changes
         onChangeLog(selectedSale.productName,newCount)
         handleDialogClose();
-        window.location.reload();
+       
       } else {
         alert("Failed to update sale: " + data.error);
       }
@@ -90,6 +90,7 @@ export default function SalesComponent() {
   
     const data = await response.json();
     console.log(data);
+    window.location.reload();
     }
   return (
     <div className="overflow-auto">

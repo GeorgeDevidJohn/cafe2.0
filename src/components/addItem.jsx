@@ -34,7 +34,9 @@ async function onChangeLog(values){
       role: userdata.role,
       message:  userdata.fullName + " have updated the count of "+ values.productName + " to " + values.count,
     }),
+    
   });
+  window.location.reload();
 }
 
 
@@ -53,12 +55,10 @@ const handleSubmit = async (e) => {
     const data = await response.json();
     console.log(data);
     setOpen(false);
-    onChangeLog(data.product)
     if (response.ok && data.success) {
-     
+      onChangeLog(data.product)
       setCount(0);
       setOpen(false);
-      window.location.reload();
     } else {
       alert("Failed to update item count");
     }
