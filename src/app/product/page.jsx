@@ -110,7 +110,7 @@ export default function Product() {
                         </CardHeader>
                         <CardContent>
                             {products.map((product) => (
-                                <Card key={product._id} style={{ boxShadow: '0 4px 6px -1px rgba(255, 166, 24, 0.61), 0 2px 4px -2px #ffa518' }} className="mt-4 bg-black border-none text-white">
+                                <Card key={product._id}  className="mt-4 bg-black border-none text-white">
                                     <CardHeader>
                                         <div className="flex items-center justify-between w-full">
                                             <CardTitle className="text-xl">{product.productName}</CardTitle>
@@ -128,7 +128,7 @@ export default function Product() {
                                                     Switch on to activate the product for sale
                                                 </p>
                                             </div>
-                                            <Switch className="!bg-[#FF7518]" defaultChecked={product.active} 
+                                            <Switch className="" defaultChecked={product.active} 
                                             onCheckedChange={() =>
                                               handleSwitchChange(product._id, product.active)
                                           }

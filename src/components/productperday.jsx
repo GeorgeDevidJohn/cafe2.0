@@ -95,7 +95,7 @@ export default function Productperday() {
                 {selectedDate ? format(selectedDate, "PPP") : "Pick a date"}
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0 bg-black text-white" align="start">
+            <PopoverContent className="w-auto p-0 backdrop-blur-md bg-[#20202066] border-none text-white" align="start">
               <Calendar
                 mode="single"
                 selected={selectedDate}

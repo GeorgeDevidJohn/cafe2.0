@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Table, TableRow, TableCell, TableHeader, TableBody } from "@/components/ui/table";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Pencil,Trash2 } from "lucide-react";
 
 export default function ExpenseTracker() {
   const [expenses, setExpenses] = useState([]);
@@ -103,45 +104,47 @@ export default function ExpenseTracker() {
   return (
     <>
      <NavigationButtons/>
-      <Card className="max-w-4xl mx-auto mt-10 h-full p-6">
+      <Card className="max-w-4xl bg-[#202020bd] border-none mx-auto  mt-10 h-full p-6">
         <CardHeader>
-          <CardTitle>Expense Tracker</CardTitle>
+          <CardTitle  className="text-2xl text-gray-300">Expense Tracker</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex gap-4 mb-4">
             <Input
+             className="text-gray-200 border-none bg-gray-800"
               placeholder="Expense Name"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
             <Input
+            className="text-gray-200 border-none bg-gray-800"
               type="number"
               placeholder="Amount"
               value={formData.amount}
               onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
             />
-            <Button onClick={handleAdd}>Add Expense</Button>
+            <Button className="bg-[#FF7518] text-white border-none" onClick={handleAdd}>Add Expense</Button>
           </div>
 
           <Table>
             <TableHeader>
               <TableRow>
-                <TableCell>Expense Name</TableCell>
-                <TableCell>Amount</TableCell>
-                <TableCell>Actions</TableCell>
+                <TableCell className="text-gray-200">Expense Name</TableCell>
+                <TableCell className="text-gray-200">Amount</TableCell>
+                <TableCell className="text-gray-200">Actions</TableCell>
               </TableRow>
             </TableHeader>
             <TableBody>
               {expenses.map((expense) => (
                 <TableRow key={expense._id}>
-                  <TableCell>{expense.expence}</TableCell>
-                  <TableCell>${parseFloat(expense.amount).toFixed(2)}</TableCell>
+                  <TableCell className="text-gray-200">{expense.expence}</TableCell>
+                  <TableCell className="text-gray-200">${parseFloat(expense.amount).toFixed(2)}</TableCell>
                   <TableCell>
-                    <Button size="sm" onClick={() => handleEdit(expense)} className="mr-2">
-                      Edit
+                    <Button size="sm"  onClick={() => handleEdit(expense)} className="!bg-gray-700 mr-2">
+                     <Pencil className="text-white"/>
                     </Button>
                     <Button size="sm" variant="destructive" onClick={() => handleDelete(expense._id)}>
-                      Delete
+                      <Trash2 className="text-white"/>
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -150,27 +153,29 @@ export default function ExpenseTracker() {
           </Table>
 
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogContent className="sm:max-w-[400px] max-w-[480px] rounded-xl">
+            <DialogContent className="sm:max-w-[400px] max-w-[320px] backdrop-blur-md bg-[#20202066] border-none rounded-xl">
               <DialogHeader>
-                <DialogTitle>Edit Expense</DialogTitle>
+                <DialogTitle  className="text-gray-300">Edit Expense</DialogTitle>
               </DialogHeader>
               <div className="flex flex-col gap-4">
                 <Input
+                className="text-gray-300 bg-gray-800 border-none"
                   placeholder="Expense Name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 />
                 <Input
+                className="text-gray-300 bg-gray-800 border-none"
                   type="number"
                   placeholder="Amount"
                   value={formData.amount}
                   onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
                 />
                 <div className="flex justify-end gap-2">
-                  <Button variant="secondary" onClick={() => setIsDialogOpen(false)}>
+                  <Button variant="secondary"  onClick={() => setIsDialogOpen(false)}>
                     Cancel
                   </Button>
-                  <Button onClick={handleSave}>Save</Button>
+                  <Button className="border-none bg-[#FF7518]" onClick={handleSave}>Save</Button>
                 </div>
               </div>
             </DialogContent>

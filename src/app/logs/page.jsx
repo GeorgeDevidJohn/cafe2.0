@@ -81,9 +81,9 @@ export default function Logs() {
      <NavigationButtons />
       <div className="flex min-h-full flex-col justify-center px-6 py-16 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
-          <Card>
+          <Card className="bg-[#202020bd] border-none"> 
             <CardHeader>
-              <CardTitle className="text-2xl">Logs</CardTitle>
+              <CardTitle className="text-2xl text-gray-300">Logs</CardTitle>
               <div className="flex gap-4">
                 {/* <Popover open={open} onOpenChange={setOpen}>
                   <PopoverTrigger asChild>
@@ -131,9 +131,9 @@ export default function Logs() {
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-[240px] justify-start text-left font-normal",
+                     
+                      className={cn( 
+                        "w-[240px] justify-start text-left font-normal !bg-[#000000bf]",
                         !date && "text-muted-foreground"
                       )}
                     >
@@ -141,7 +141,7 @@ export default function Logs() {
                       {date ? format(date, "PPP") : <span>Pick a date</span>}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
+                  <PopoverContent className="w-auto p-0  text-white backdrop-blur-md bg-[#20202066] border-none" align="start">
                     <Calendar
                       mode="single"
                       selected={date}
@@ -156,20 +156,20 @@ export default function Logs() {
               <Table>
                 <TableCaption>Activity logs recorded in the system.</TableCaption>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead>User</TableHead>
-                    <TableHead>Name</TableHead>
-                    <TableHead className="text-right">Log message</TableHead>
-                    <TableHead className="text-right">Date and Time</TableHead>
+                  <TableRow className="text-gray-200">
+                    <TableHead className="text-gray-200">User</TableHead>
+                    <TableHead className="text-gray-200">Name</TableHead>
+                    <TableHead className="text-right text-gray-200">Log message</TableHead>
+                    <TableHead className="text-right text-gray-200">Date and Time</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody >
                   {logs.map((log, index) => (
                     <TableRow key={index}>
-                      <TableCell>{log.role}</TableCell>
-                      <TableCell>{log.name}</TableCell>
-                      <TableCell className="text-right">{log.message}</TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="text-gray-200">{log.role}</TableCell>
+                      <TableCell className="text-gray-200">{log.name}</TableCell>
+                      <TableCell className="text-right text-gray-200">{log.message}</TableCell>
+                      <TableCell className="text-right text-gray-200">
                         {log.createdAt ? format(new Date(log.createdAt), "PPpp") : "N/A"}
                       </TableCell>
                     </TableRow>
