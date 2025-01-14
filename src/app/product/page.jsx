@@ -5,7 +5,7 @@ import Image from "next/image";
 import AddProduct from "@/components/addProduct";
 import AddItem from "@/components/addItem";
 import EditProduct from "@/components/editProduct";
-import { Check, Package, PlusCircleIcon } from "lucide-react";
+import { Check, Package, CupSoda } from "lucide-react";
 import {
     Card,
     CardContent,
@@ -110,16 +110,16 @@ export default function Product() {
                         </CardHeader>
                         <CardContent>
                             {products.map((product) => (
-                                <Card key={product._id} className="mt-4">
+                                <Card key={product._id} style={{ boxShadow: '0 4px 6px -1px rgba(255, 166, 24, 0.61), 0 2px 4px -2px #ffa518' }} className="mt-4 bg-black border-none text-white">
                                     <CardHeader>
                                         <div className="flex items-center justify-between w-full">
-                                            <CardTitle>{product.productName}</CardTitle>
+                                            <CardTitle className="text-xl">{product.productName}</CardTitle>
                                             <EditProduct product={product} onProductUpdate={handleProductUpdate} />
                                         </div>
                                     </CardHeader>
                                     <CardContent className="grid gap-4">
-                                        <div className="flex items-center space-x-4 rounded-md border p-4">
-                                            <Package />
+                                        <div className="flex items-center bg-gray-900  space-x-4 rounded-md  p-4">
+                                            <CupSoda />
                                             <div className="flex-1 space-y-1">
                                                 <p className="text-sm font-medium leading-none">
                                                     Activate the product
@@ -128,7 +128,7 @@ export default function Product() {
                                                     Switch on to activate the product for sale
                                                 </p>
                                             </div>
-                                            <Switch defaultChecked={product.active} 
+                                            <Switch className="!bg-[#FF7518]" defaultChecked={product.active} 
                                             onCheckedChange={() =>
                                               handleSwitchChange(product._id, product.active)
                                           }
@@ -137,28 +137,28 @@ export default function Product() {
                                         <div>
                                             <div className="grid grid-cols-4 gap-4">
                                                 <div className="grid grid-cols-[25px_1fr] items-start pb-4">
-                                                    <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
+                                                    <span className="flex h-2 w-2 translate-y-1 rounded-full bg-[#FF7518]" />
                                                     <div className="space-y-1">
                                                         <p className="text-sm font-medium leading-none">Cost Price</p>
                                                         <p className="text-sm text-muted-foreground">{product.costPrice}</p>
                                                     </div>
                                                 </div>
                                                 <div className="grid grid-cols-[25px_1fr] items-start pb-4">
-                                                    <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
+                                                    <span className="flex h-2 w-2 translate-y-1 rounded-full bg-[#FF7518]" />
                                                     <div className="space-y-1">
                                                         <p className="text-sm font-medium leading-none">Sale Price</p>
                                                         <p className="text-sm text-muted-foreground">{product.salePrice}</p>
                                                     </div>
                                                 </div>
                                                 <div className="grid grid-cols-[25px_1fr] items-start pb-4">
-                                                    <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
+                                                    <span className="flex h-2 w-2 translate-y-1 rounded-full bg-[#FF7518]" />
                                                     <div className="space-y-1">
                                                         <p className="text-sm font-medium leading-none">Total Count</p>
                                                         <p className="text-sm text-muted-foreground">{product.count}</p>
                                                     </div>
                                                 </div>
                                                 <div className="grid grid-cols-[25px_1fr] items-start pb-4">
-                                                    <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
+                                                    <span className="flex h-2 w-2 translate-y-1 rounded-full bg-[#FF7518]" />
                                                     <div className="space-y-1">
                                                         <p className="text-sm font-medium leading-none">Sold Count</p>
                                                         <p className="text-sm text-muted-foreground">{product.sold || 0}</p>

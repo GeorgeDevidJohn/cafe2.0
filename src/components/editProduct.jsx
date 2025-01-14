@@ -98,9 +98,9 @@ export default function EditProduct({ product, onProductUpdate }) {
     <>
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">
-          <Pencil />
-        </Button>
+        
+          <Pencil className=" text-lg text-[#FF7518]" />
+     
       </DialogTrigger>
       <DialogContent className="sm:max-w-[400px] max-w-[480px] rounded-xl">
         <DialogHeader>

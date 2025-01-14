@@ -49,9 +49,9 @@ export default function AddProduct() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       productName: "", // Always initialize as a string
-      salePrice: 0, // Always initialize as a number
-      costPrice: 0,
-      count: 1,
+      salePrice: "", // Always initialize as a number
+      costPrice: "",
+      count: "",
       active: true,
     },
   });
@@ -98,15 +98,15 @@ export default function AddProduct() {
       <DialogTrigger asChild>
         <Button
           onClick={() => setIsDialogOpen(true)}
-          className="bg-orange-500 text-white"
-          variant="outline"
+          className="bg-[#FF7518] text-white"
+          
         >
           Add Product
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[400px] max-w-[480px] rounded-xl">
+      <DialogContent className="sm:max-w-[400px] backdrop-blur-md bg-[#20202066] max-w-[340px] border-none  rounded-xl">
         <DialogHeader>
-          <DialogTitle>Add Product</DialogTitle>
+          <DialogTitle className="text-gray-300">Add Product</DialogTitle>
           <DialogDescription>Add a new product to the cart</DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -116,9 +116,9 @@ export default function AddProduct() {
               name="productName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Product Name</FormLabel>
+                  <FormLabel className="text-gray-300">Product Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Product Name" {...field} />
+                    <Input className="text-gray-300 bg-gray-800 border-none" placeholder="Product Name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -129,9 +129,9 @@ export default function AddProduct() {
               name="salePrice"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Sale Price</FormLabel>
+                  <FormLabel className="text-gray-300">Sale Price</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="Sale Price" {...field} />
+                    <Input className="text-gray-300 bg-gray-800 border-none" type="number" placeholder="Sale Price" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -142,9 +142,9 @@ export default function AddProduct() {
               name="costPrice"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Cost Price</FormLabel>
+                  <FormLabel className="text-gray-300">Cost Price</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="Cost Price" {...field} />
+                    <Input className="text-gray-300 bg-gray-800 border-none" type="number" placeholder="Cost Price" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -155,15 +155,15 @@ export default function AddProduct() {
               name="count"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Count</FormLabel>
+                  <FormLabel className="text-gray-300">Count</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="Count" {...field} />
+                    <Input className="text-gray-300 bg-gray-800 border-none" type="number" placeholder="Count" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full bg-[#FF7518]">
               Submit
             </Button>
           </form>

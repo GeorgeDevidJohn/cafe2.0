@@ -71,13 +71,13 @@ return (
   <>
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="w-full">
+        <Button className="w-full border-none bg-[#FF7518]">
           <PlusCircleIcon /> Add Item
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[300px] max-w-[380px] rounded-xl top-[20rem]">
+      <DialogContent className="sm:max-w-[300px] max-w-[380px] bg-[#202020bd] rounded-xl top-[20rem]">
         <DialogHeader>
-          <DialogTitle>Add Number</DialogTitle>
+          <DialogTitle className="text-gray-300">Add Number</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
