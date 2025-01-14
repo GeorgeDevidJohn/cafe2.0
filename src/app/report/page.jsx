@@ -35,7 +35,6 @@ export default function SalesChart() {
   const [loading, setLoading] = useState(true);
   const [userData, setUser] = useState("");
 
-  // Fetch sales data for the current month
   const fetchData = async (month, year) => {
     try {
       const response = await fetch(`/api/monthsale?month=${month}&year=${year}`, {
@@ -57,101 +56,115 @@ export default function SalesChart() {
     }
   };
 
-  async function getUserData(){
-    const users =  await getUser();
-    setUser(users)
-  }
+  const getUserData = async () => {
+    try {
+      const users = await getUser();
+      setUser(users);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
-  useEffect(async () => {
-    getUserData()
-    const currentDate = new Date();
-    const month = getMonth(currentDate) + 1; // Months are 0-indexed
-    const year = getYear(currentDate);
-    fetchData(month, year);
+  useEffect(() => {
+    async function initialize() {
+      try {
+        await getUserData(); // Fetch user data
+        const currentDate = new Date();
+        const month = getMonth(currentDate) + 1; // Months are 0-indexed
+        const year = getYear(currentDate);
+        await fetchData(month, year); // Fetch chart data
+      } catch (error) {
+        console.error("Error during initialization:", error);
+      }
+    }
+    initialize();
   }, []);
 
-  // Get the current month name for the title
   const currentMonth = format(startOfMonth(new Date()), "MMMM yyyy");
 
   return (
     <>
-    <NavigationButtons/>
-    
-    <div className="flex min-h-full flex-col justify-center px-6 pt-16 lg:px-8">
-    <span className="text-gray-200 mt-8 font-extrabold text-2xl">HI {userData.fullName} !</span>
-    <RevenueCard/>
-      <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
-        <Card className="mt-4 border-none bg-[#202020bd]">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle className="text-white">Sales Data for {currentMonth}</CardTitle>
-                <CardDescription className="text-gray-600">Total sales for the current month</CardDescription>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            {loading ? (
-              <div>Loading...</div>
-            ) : (
-              <ChartContainer config={chartConfig}>
-                <AreaChart 
-                  accessibilityLayer
-                  data={chartData}
-                  margin={{ left: 6, right: 6 }}
-                >
-                  <CartesianGrid vertical={false} />
-                  <XAxis 
-                    dataKey="week"
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={8}
-                  />
-                  <YAxis
-                    dataKey="totalSales"
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={8}
-                  />
-                  <ChartTooltip
-                    cursor={false}
-                    content={<ChartTooltipContent indicator="dot" hideLabel />}
-                  />
-                  <Area
-                    dataKey="totalSales"
-                    type="linear"
-                    fill="var(--color-desktop)"
-                    fillOpacity={0.4}
-                    stroke="var(--color-desktop)"
-                  />
-                </AreaChart>
-              </ChartContainer>
-            )}
-          </CardContent>
-          <CardFooter>
-            <div className="flex w-full items-start gap-2 text-sm">
-              <div className="grid gap-2">
-                <div className="flex items-center gap-2 text-white font-medium leading-none">
-                  Overall trend for {currentMonth}
-                  <TrendingUp className="h-4 w-4 text-green-300" />
+      <NavigationButtons />
+      <div className="flex min-h-full flex-col justify-center px-6 pt-16 lg:px-8">
+        <span className="text-gray-200 mt-8 font-extrabold text-2xl">
+          HI {userData.fullName}!
+        </span>
+        <RevenueCard />
+        <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
+          <Card className="mt-4 border-none bg-[#202020bd]">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-white">
+                    Sales Data for {currentMonth}
+                  </CardTitle>
+                  <CardDescription className="text-gray-600">
+                    Total sales for the current month
+                  </CardDescription>
                 </div>
               </div>
-            </div>
-          </CardFooter>
-        </Card>
+            </CardHeader>
+            <CardContent>
+              {loading ? (
+                <div>Loading...</div>
+              ) : (
+                <ChartContainer config={chartConfig}>
+                  <AreaChart
+                    accessibilityLayer
+                    data={chartData}
+                    margin={{ left: 6, right: 6 }}
+                  >
+                    <CartesianGrid vertical={false} />
+                    <XAxis
+                      dataKey="week"
+                      tickLine={false}
+                      axisLine={false}
+                      tickMargin={8}
+                    />
+                    <YAxis
+                      dataKey="totalSales"
+                      tickLine={false}
+                      axisLine={false}
+                      tickMargin={8}
+                    />
+                    <ChartTooltip
+                      cursor={false}
+                      content={<ChartTooltipContent indicator="dot" hideLabel />}
+                    />
+                    <Area
+                      dataKey="totalSales"
+                      type="linear"
+                      fill="var(--color-desktop)"
+                      fillOpacity={0.4}
+                      stroke="var(--color-desktop)"
+                    />
+                  </AreaChart>
+                </ChartContainer>
+              )}
+            </CardContent>
+            <CardFooter>
+              <div className="flex w-full items-start gap-2 text-sm">
+                <div className="grid gap-2">
+                  <div className="flex items-center gap-2 text-white font-medium leading-none">
+                    Overall trend for {currentMonth}
+                    <TrendingUp className="h-4 w-4 text-green-300" />
+                  </div>
+                </div>
+              </div>
+            </CardFooter>
+          </Card>
+        </div>
       </div>
-      
-    </div>
-    <div className="flex min-h-full flex-col justify-center px-6   lg:px-1">
-    <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
-    <ProductMonth/> 
-    </div>
-    </div>
-    <div className="flex min-h-full flex-col justify-center px-6  lg:px-1">
-    <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
-    <Productperday/>
-    </div>
-    </div>
+      <div className="flex min-h-full flex-col justify-center px-6   lg:px-1">
+        <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
+          <ProductMonth />
+        </div>
+      </div>
+      <div className="flex min-h-full flex-col justify-center px-6  lg:px-1">
+        <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
+          <Productperday />
+        </div>
+      </div>
     </>
   );
 }
