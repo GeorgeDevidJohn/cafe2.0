@@ -49,11 +49,11 @@ export default function Users() {
     <NavigationButtons/>
       <div className="flex min-h-full flex-col justify-center px-6 py-16 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
-          <Card className="mt-10">
+          <Card className="mt-10 bg-[#202020bd] border-none">
             <CardHeader className="flex justify-between items-center">
-              <CardTitle className="text-2xl">Users List</CardTitle>
+              <CardTitle className="text-2xl text-white">Users List</CardTitle>
               <Link href="/register" passHref>
-                <Button className="bg-orange-500 text-white" variant="outline">
+                <Button className="!bg-[#FF7518] text-white" >
                   Register User
                 </Button>
               </Link>
@@ -70,13 +70,13 @@ export default function Users() {
                    
                   </TableRow>
                 </TableHeader>
-                <TableBody>
+                <TableBody className="text-gray-400">
                   {users.length > 0 ? (
                     users.map((user) => (
-                      <TableRow key={user.id}>
-                        <TableCell>{user.fullName}</TableCell>
-                        <TableCell>{user.userName}</TableCell>
-                        <TableCell>{user.role}</TableCell>
+                      <TableRow className="text-gray-400" key={user.id}>
+                        <TableCell className="text-gray-400">{user.fullName}</TableCell>
+                        <TableCell className="text-gray-400">{user.userName}</TableCell>
+                        <TableCell className="text-gray-400">{user.role}</TableCell>
                        
                       </TableRow>
                     ))

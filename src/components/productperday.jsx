@@ -70,10 +70,10 @@ export default function Productperday() {
   }, [selectedDate]);
 
   return (
-    <Card className="mt-4">
+    <Card className="mt-4 mb-8 bg-[#202020bd] border-none">
       <CardHeader>
-        <CardTitle>Product Sales Per Day</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-white">Product Sales Per Day</CardTitle>
+        <CardDescription className="text-gray-600">
           Sales data for{" "}
           {selectedDate
             ? format(selectedDate, "PPP")
@@ -85,9 +85,9 @@ export default function Productperday() {
           <Popover open={isPopoverOpen} onOpenChange={setPopoverOpen}>
             <PopoverTrigger asChild>
               <Button
-                variant="outline"
-                className={cn(
-                  "w-[240px] justify-start text-left font-normal",
+                
+                className={cn( 
+                  "w-[240px] justify-start !bg-[#000000bf] text-left font-normal",
                   !selectedDate && "text-muted-foreground"
                 )}
               >
@@ -95,7 +95,7 @@ export default function Productperday() {
                 {selectedDate ? format(selectedDate, "PPP") : "Pick a date"}
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
+            <PopoverContent className="w-auto p-0 bg-black text-white" align="start">
               <Calendar
                 mode="single"
                 selected={selectedDate}
@@ -153,7 +153,7 @@ export default function Productperday() {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="leading-none text-muted-foreground">
+        <div className="leading-none text-white text-muted-foreground">
           Showing total sales for{" "}
           {selectedDate ? format(selectedDate, "PPP") : "all dates"}
         </div>

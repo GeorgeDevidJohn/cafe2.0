@@ -21,6 +21,7 @@ import ProductMonth from "@/components/productmonth";
 import Productperday from "@/components/productperday";
 import RevenueCard from "@/components/profit";
 import NavigationButtons from "@/components/nav";
+import getUser from "@/lib/getuser";
 
 const chartConfig = {
   desktop: {
@@ -32,6 +33,7 @@ const chartConfig = {
 export default function SalesChart() {
   const [chartData, setChartData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [userData, setUser] = useState("");
 
   // Fetch sales data for the current month
   const fetchData = async (month, year) => {
@@ -55,7 +57,13 @@ export default function SalesChart() {
     }
   };
 
-  useEffect(() => {
+  async function getUserData(){
+    const users =  await getUser();
+    setUser(users)
+  }
+
+  useEffect(async () => {
+    getUserData()
     const currentDate = new Date();
     const month = getMonth(currentDate) + 1; // Months are 0-indexed
     const year = getYear(currentDate);
@@ -68,15 +76,17 @@ export default function SalesChart() {
   return (
     <>
     <NavigationButtons/>
+    
     <div className="flex min-h-full flex-col justify-center px-6 pt-16 lg:px-8">
+    <span className="text-gray-200 mt-8 font-extrabold text-2xl">HI {userData.fullName} !</span>
     <RevenueCard/>
       <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
-        <Card className="mt-4">
+        <Card className="mt-4 border-none bg-[#202020bd]">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle>Sales Data for {currentMonth}</CardTitle>
-                <CardDescription>Total sales for the current month</CardDescription>
+                <CardTitle className="text-white">Sales Data for {currentMonth}</CardTitle>
+                <CardDescription className="text-gray-600">Total sales for the current month</CardDescription>
               </div>
             </div>
           </CardHeader>
@@ -85,13 +95,13 @@ export default function SalesChart() {
               <div>Loading...</div>
             ) : (
               <ChartContainer config={chartConfig}>
-                <AreaChart
+                <AreaChart 
                   accessibilityLayer
                   data={chartData}
                   margin={{ left: 6, right: 6 }}
                 >
                   <CartesianGrid vertical={false} />
-                  <XAxis
+                  <XAxis 
                     dataKey="week"
                     tickLine={false}
                     axisLine={false}
@@ -121,9 +131,9 @@ export default function SalesChart() {
           <CardFooter>
             <div className="flex w-full items-start gap-2 text-sm">
               <div className="grid gap-2">
-                <div className="flex items-center gap-2 font-medium leading-none">
+                <div className="flex items-center gap-2 text-white font-medium leading-none">
                   Overall trend for {currentMonth}
-                  <TrendingUp className="h-4 w-4" />
+                  <TrendingUp className="h-4 w-4 text-green-300" />
                 </div>
               </div>
             </div>

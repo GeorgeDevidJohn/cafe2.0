@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ChartLine, User, Package, Logs, CircleDollarSign } from "lucide-react";
+import { ChartLine, User, Package, Logs, CircleDollarSign, LucideLogOut } from "lucide-react";
 import { deleteSession } from "@/lib/session";
 import { useRouter } from "next/navigation";
 import getUser from "@/lib/getuser";
@@ -23,7 +23,7 @@ export default function NavigationButtons({ triggerUpdate }) {
     fetchUserData(); // Fetch user data when the component mounts
   }, [triggerUpdate]); // Re-run effect when triggerUpdate changes
 
-  const LogOut = () => {
+  const LogOutnow = () => {
     deleteSession();
     router.push("/login");
   };
@@ -35,54 +35,46 @@ export default function NavigationButtons({ triggerUpdate }) {
   return (
     <>
       {userdata?.userId && (
-        <div className="fixed top-0 left-0 w-full z-10 flex items-center justify-center backdrop-blur-md bg-white/30 py-4 space-x-4 px-4">
+        <div className="fixed top-0 left-0 w-full z-10 flex items-center justify-center backdrop-blur-md bg-black/30">
+        <div className=" flex items-center gap-4 justify-center  py-4 space-x-4 px-4">
           {userdata?.role === "admin" && (
             <Link href="/report" passHref>
-              <Button asChild className="flex items-center space-x-2" onClick={handleReload}>
-                <div>
-                  <ChartLine />
-                </div>
-              </Button>
+              
+                  <ChartLine className="text-[#FF7518]" />
+                
             </Link>
           )}
           {userdata?.role === "admin" && (
             <Link href="/users" passHref>
-              <Button asChild className="flex items-center space-x-2" onClick={handleReload}>
-                <div>
-                  <User />
-                </div>
-              </Button>
+            
+                  <User  className="text-[#FF7518]"/>
+               
             </Link>
           )}
           {userdata?.role === "admin" && (
             <Link href="/product" passHref>
-              <Button asChild className="flex items-center space-x-2" onClick={handleReload}>
-                <div>
-                  <Package />
-                </div>
-              </Button>
+              
+                  <Package className="text-[#FF7518]" />
+               
             </Link>
           )}
           {userdata?.role === "admin" && (
             <Link href="/logs" passHref>
-              <Button asChild className="flex items-center space-x-2" onClick={handleReload}>
-                <div>
-                  <Logs />
-                </div>
-              </Button>
+             
+                  <Logs  className="text-[#FF7518]"/>
+               
             </Link>
           )}
           {userdata?.role === "admin" && (
             <Link href="/expence" passHref>
-              <Button asChild className="flex items-center space-x-2" onClick={handleReload}>
-                <div>
-                  <CircleDollarSign />
-                </div>
-              </Button>
+          
+                  <CircleDollarSign className="text-[#FF7518]" />
+                
             </Link>
           )}
-          <Button onClick={() => { LogOut(); handleReload(); }} className="flex items-center space-x-2">
-            <div>Logout</div>
+          </div>
+          <Button onClick={() => { LogOutnow(); handleReload(); }} className="flex items-center ml-4 !bg-none text-gray-200 space-x-2">
+            <LucideLogOut/>
           </Button>
         </div>
       )}

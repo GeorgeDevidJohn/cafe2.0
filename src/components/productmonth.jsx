@@ -73,10 +73,10 @@ export default function ProductMonth() {
   }, []);
 
   return (
-    <Card className="mt-4">
+    <Card className="mt-4 bg-[#202020bd] border-none">
       <CardHeader>
-        <CardTitle>Weekly Product Sales</CardTitle>
-        <CardDescription>{new Date().toLocaleString("default", { month: "long", year: "numeric" })}</CardDescription>
+        <CardTitle className="text-white">Weekly Product Sales</CardTitle>
+        <CardDescription className="text-gray-600">{new Date().toLocaleString("default", { month: "long", year: "numeric" })}</CardDescription>
       </CardHeader>
       <CardContent>
         {loading ? (
@@ -122,10 +122,10 @@ export default function ProductMonth() {
       <CardFooter>
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
+            <div className="flex items-center gap-2 font-medium  text-white leading-none">
               Sales trend for the current month <TrendingUp className="h-4 w-4" />
             </div>
-            <div className="flex items-center gap-2 leading-none text-muted-foreground">
+            <div className="flex items-center gap-2 text-gray-600 leading-none text-muted-foreground">
               Showing total sales of products by week
             </div>
           </div>

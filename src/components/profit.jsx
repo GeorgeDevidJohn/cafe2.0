@@ -66,10 +66,10 @@ export default function RevenueCard() {
   }, []);
 
   return (
-    <Card className="w-full max-w-sm mx-auto mt-10 shadow-lg">
+    <Card className="w-full max-w-sm mx-auto mt-10 border-none  shadow-2xl bg-[#202020bd]">
       <CardHeader>
-        <CardTitle>Total Revenue</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-gray-200">Total Revenue</CardTitle>
+        <CardDescription className="text-gray-600">
           Displaying the total sales revenue from all products
         </CardDescription>
       </CardHeader>
@@ -83,7 +83,7 @@ export default function RevenueCard() {
             ${totalRevenue?.toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </div>
         )}
-         <span className="mt-2">Total Revenue</span>
+         <span className="mt-2 text-gray-200">Total Revenue</span>
        </div>
         <div>
             
@@ -94,7 +94,7 @@ export default function RevenueCard() {
             ${totalExpense?.toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </div>
         )}
-         <span className="mt-2">Total Expense</span>
+         <span className="mt-2 text-gray-200">Total Expense</span>
         </div>
         </div>
 <div className="flex mt-4 justify-between items-center">
@@ -107,7 +107,7 @@ export default function RevenueCard() {
             ${(totalRevenue?.toLocaleString("en-US", { minimumFractionDigits: 2 }) - totalExpense?.toLocaleString("en-US", { minimumFractionDigits: 2 })).toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </div>
         )}
-         <span className="mt-2">Total Profit</span>
+         <span className="mt-2 text-gray-200">Total Profit</span>
        </div>
 
        <div >
@@ -119,15 +119,15 @@ export default function RevenueCard() {
                 {  (((totalRevenue?.toLocaleString("en-US", { minimumFractionDigits: 2 }) - totalExpense?.toLocaleString("en-US", { minimumFractionDigits: 2 }))/totalRevenue?.toLocaleString("en-US", { minimumFractionDigits: 2 })) * 100).toLocaleString("en-US", { minimumFractionDigits: 2 })} %
               </div>
             )}
-             <span className="mt-2">Profit Percentage</span>
+             <span className="mt-2 text-gray-200">Profit Percentage</span>
            </div>
            </div>
       </CardContent>
       <CardFooter className="flex justify-between items-center">
-        <div className="flex gap-2 font-medium leading-none">
+        <div className="flex gap-2 font-medium leading-none text-gray-200">
           Trending up this month <TrendingUp className="h-5 w-5 text-green-500" />
         </div>
-        <Button variant="outline" onClick={fetchRevenueData}>
+        <Button className="!bg-[#FF7518]" onClick={fetchRevenueData}>
           Refresh
         </Button>
       </CardFooter>
