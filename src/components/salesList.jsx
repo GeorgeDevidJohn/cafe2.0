@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Edit } from "lucide-react";
+import { Edit, Pencil } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import getUser from "@/lib/getuser";
@@ -96,29 +96,29 @@ export default function SalesComponent() {
     <div className="overflow-auto">
       <Table>
         <TableHeader>
-          <TableRow>
-            <TableHead>Product Name</TableHead>
-            <TableHead>Sold Count</TableHead>
-            <TableHead className="text-right">Date and Time</TableHead>
-            <TableHead>Actions</TableHead>
+          <TableRow className="text-gray-200">
+            <TableHead className="text-gray-200">Product Name</TableHead>
+            <TableHead className="text-gray-200">Sold Count</TableHead>
+            <TableHead className="text-right text-gray-200">Date and Time</TableHead>
+            <TableHead className="text-gray-200"> Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody >
         {sales.map((sale, index) => (
     <TableRow key={sale._id || index}>
-              <TableCell>{sale.productName}</TableCell>
-              <TableCell>{sale.count || 0}</TableCell>
-              <TableCell className="text-right">
+              <TableCell className="text-gray-200">{sale.productName}</TableCell>
+              <TableCell className="text-gray-200">{sale.count || 0}</TableCell>
+              <TableCell className="text-right text-gray-200">
                 {sale.createdAt ? format(new Date(sale.createdAt), "PPpp") : "N/A"}
               </TableCell>
-              <TableCell>
+              <TableCell >
                 <div className="flex gap-2 justify-end">
                   <Button
                     onClick={() => handleEditTransaction(sale)}
-                    variant="outline"
+                  className="bg-none"
                     size="sm"
                   >
-                    <Edit className="w-4 h-4" />
+                    <Pencil className="text-red-600" />
                   </Button>
                 </div>
               </TableCell>

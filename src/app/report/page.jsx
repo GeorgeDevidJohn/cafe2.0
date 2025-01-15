@@ -86,7 +86,7 @@ export default function SalesChart() {
     <>
       <NavigationButtons />
       <div className="flex min-h-full flex-col justify-center px-6 pt-16 lg:px-8">
-        <span className="text-gray-200 mt-8 font-extrabold text-2xl">
+        <span className="text-gray-200  font-bold text-2xl">
           HI {userData.fullName}!
         </span>
         <RevenueCard />
@@ -161,7 +161,7 @@ export default function SalesChart() {
         </div>
       </div>
       <div className="flex min-h-full flex-col justify-center px-6  lg:px-1">
-        <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
+        <div className="sm:mx-auto sm:w-full pb-20 sm:max-w-6xl">
           <Productperday />
         </div>
       </div>

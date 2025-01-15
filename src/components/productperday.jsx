@@ -70,7 +70,7 @@ export default function Productperday() {
   }, [selectedDate]);
 
   return (
-    <Card className="mt-4 mb-8 bg-[#202020bd] border-none">
+    <Card className="mt-4 bg-[#202020bd] border-none">
       <CardHeader>
         <CardTitle className="text-white">Product Sales Per Day</CardTitle>
         <CardDescription className="text-gray-600">

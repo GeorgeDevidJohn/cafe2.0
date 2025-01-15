@@ -26,11 +26,14 @@ import getUser from "@/lib/getuser";
 export default function SalesPage() {
   const [products, setProducts] = useState([]);
   const [currentProduct, setCurrentProduct] = useState(null);
-  const [count, setCount] = useState(""); // Initialize with an empty string to avoid uncontrolled input issues
+  const [count, setCount] = useState("");
+  const [user,setuser]= useState("") // Initialize with an empty string to avoid uncontrolled input issues
 
   useEffect(() => {
     async function fetchActiveProducts() {
       try {
+        const userdatas = await getUser();
+        setuser(userdatas)
         const response = await fetch("/api/activeproducts", { method: "GET" });
         const data = await response.json();
         if (data.success) {
@@ -136,36 +139,41 @@ export default function SalesPage() {
        <NavigationButtons/>
    
     <div className="p-6 mt-16 space-y-8">
+    <span className="text-gray-200  font-bold text-2xl">
+          HI {user.fullName}!
+        </span>
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {products.map((product) => (
-          <Card key={product._id} className="hover:shadow-lg">
+          
+          <Card key={product._id} className="hover:shadow-lg bg-gradient-to-br from-slate-900 to-neutral-800 border-none">
             <CardHeader>
-              <CardTitle>{product.productName}</CardTitle>
-              <CardDescription>${product.salePrice.toFixed(2)}</CardDescription>
+              <CardTitle className="2xl text-gray-200">{product.productName}</CardTitle>
+              <CardDescription className="!3xl font-bold !text-gray-200">${product.salePrice.toFixed(2)}</CardDescription>
             </CardHeader>
             <CardContent>
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button className="w-full bg-blue-500 text-white">Add Sale</Button>
+                  <Button className="w-full bg-[#FF7518] border-none font-bold text-gray-200">Add Sale</Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[400px] top-[16rem] p-4 max-w-[340px] rounded-xl">
+                <DialogContent className="sm:max-w-[400px] backdrop-blur-md bg-[#20202066] max-w-[340px] top-40 border-none rounded-xl ">
                   <DialogHeader>
-                    <DialogTitle>Add Sale</DialogTitle>
+                    <DialogTitle className="text-gray-200">Add Sale</DialogTitle>
                     <DialogDescription>
-                      Enter the count of items sold for {product.productName}.
+                      Enter the count for  {product.productName}.
                     </DialogDescription>
                   </DialogHeader>
                   <div className="flex flex-col gap-4">
                     <Input
                       type="number"
                       min={1}
+                      className="text-gray-300 col-span-3 bg-gray-800 border-none"
                       value={count}
                       onChange={(e) => setCount(e.target.value)}
                       placeholder="Enter count"
                     />
                     <Button
                       onClick={() => handleAddSale(product._id, product.productName)}
-                      className="bg-orange-500 text-white"
+                      className="bg-[#FF7518] text-white"
                     >
                       Submit
                     </Button>
@@ -177,7 +185,7 @@ export default function SalesPage() {
         ))}
       </div>
 
-      <div className="overflow-auto">
+      <div className="overflow-auto pb-10">
         <SalesComponent />
       </div>
     </div>

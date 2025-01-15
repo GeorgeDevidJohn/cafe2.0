@@ -101,9 +101,9 @@ export default function Product() {
         <>
         <NavigationButtons/>
       
-            <div className="flex min-h-full flex-col justify-center px-6 py-16 lg:px-8">
-                <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
-                    <Card className=" bg-[#202020bd] border-none">
+            <div className="flex min-h-full flex-col  justify-center px-6 py-16 lg:px-8">
+                <div className="sm:mx-auto  sm:w-full sm:max-w-6xl">
+                    <Card className=" bg-[#202020bd]  border-none">
                         <CardHeader>
                             <CardTitle className="text-2xl mb-8 text-gray-300">Product</CardTitle>
                             <AddProduct />
