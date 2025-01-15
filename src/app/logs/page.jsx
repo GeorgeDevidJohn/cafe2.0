@@ -83,7 +83,7 @@ export default function Logs() {
         <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
           <Card className="bg-[#202020bd] border-none"> 
             <CardHeader>
-              <CardTitle className="text-2xl text-gray-300">Logs</CardTitle>
+              <CardTitle className="text-2xl mb-8 text-gray-300">Logs</CardTitle>
               <div className="flex gap-4">
                 {/* <Popover open={open} onOpenChange={setOpen}>
                   <PopoverTrigger asChild>
@@ -141,7 +141,7 @@ export default function Logs() {
                       {date ? format(date, "PPP") : <span>Pick a date</span>}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0  text-white backdrop-blur-md bg-[#20202066] border-none" align="start">
+                  <PopoverContent className="w-auto p-0  bg-[#ffffffb8] backdrop-blur-md  border-none" align="start">
                     <Calendar
                       mode="single"
                       selected={date}

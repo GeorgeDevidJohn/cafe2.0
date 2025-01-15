@@ -68,17 +68,13 @@ export default function AboutUs() {
 
   return (
     <>
-    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-          Sign in to your account
-        </h2>
-      </div>
+    <div className="flex mt-10 min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+     
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <Card>
+        <Card className=" bg-[#202020bd] border-none">
           <CardHeader>
-            <CardTitle className="text-2xl">Login</CardTitle>
+            <CardTitle className="text-2xl text-gray-300">Login</CardTitle>
             <CardDescription>
               Enter your username below to login to your account
             </CardDescription>
@@ -87,10 +83,10 @@ export default function AboutUs() {
             <form onSubmit={handleSubmit}>
               <div className="flex flex-col gap-6">
                 <div className="grid gap-2">
-                  <Label htmlFor="userName">User Name</Label>
+                  <Label htmlFor="userName" className="text-gray-300">User Name</Label>
                   <Input
                     id="userName"
-                    type="text"
+                    type="text" className="text-gray-300 bg-gray-800 border-none"
                     placeholder="Tgeorge"
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
@@ -99,18 +95,18 @@ export default function AboutUs() {
                 </div>
                 <div className="grid gap-2">
                   <div className="flex items-center">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password" className="text-gray-300">Password</Label>
                   </div>
                   <Input
                     id="password"
-                    type="password"
+                    type="password" className="text-gray-300 bg-gray-800 border-none"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </div>
                 {error && <div className="text-red-500 text-sm">{error}</div>}
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full bg-[#FF7518]" disabled={loading}>
                   {loading ? "Logging in..." : "Login"}
                 </Button>
               </div>

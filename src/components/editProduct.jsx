@@ -102,7 +102,7 @@ export default function EditProduct({ product, onProductUpdate }) {
           <Pencil className=" text-lg text-[#FF7518]" />
      
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[400px] max-w-[480px] rounded-xl">
+      <DialogContent className="sm:max-w-[400px] border-none backdrop-blur-md bg-[#20202066] max-w-[340px] rounded-xl">
         <DialogHeader>
           <DialogTitle>Edit Product</DialogTitle>
         </DialogHeader>
@@ -113,9 +113,9 @@ export default function EditProduct({ product, onProductUpdate }) {
               name="productName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Product Name</FormLabel>
+                  <FormLabel className="text-gray-300">Product Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Product Name" {...field} />
+                    <Input className="text-gray-300 bg-gray-800 border-none" placeholder="Product Name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -126,9 +126,9 @@ export default function EditProduct({ product, onProductUpdate }) {
               name="salePrice"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Sale Price</FormLabel>
+                  <FormLabel className="text-gray-300">Sale Price</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="Sale Price" {...field} />
+                    <Input type="number" className="text-gray-300 bg-gray-800 border-none" placeholder="Sale Price" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -139,9 +139,9 @@ export default function EditProduct({ product, onProductUpdate }) {
               name="costPrice"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Cost Price</FormLabel>
+                  <FormLabel className="text-gray-300">Cost Price</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="Cost Price" {...field} />
+                    <Input type="number" className="text-gray-300 bg-gray-800 border-none" placeholder="Cost Price" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -152,15 +152,15 @@ export default function EditProduct({ product, onProductUpdate }) {
               name="count"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Count</FormLabel>
+                  <FormLabel className="text-gray-300">Count</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="Count" {...field} />
+                    <Input type="number" className="text-gray-300 bg-gray-800 border-none" placeholder="Count" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full bg-[#FF7518]">
               Submit
             </Button>
           </form>

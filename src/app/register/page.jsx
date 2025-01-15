@@ -73,18 +73,13 @@ export default function Register() {
     <>
     <NavigationButtons/>
    
-    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-          Register new user to account
-        </h2>
-      </div>
+    <div className="flex mt-10 min-h-full flex-col justify-center px-6 py-12 lg:px-8">
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <Card className="mt-10">
+      <div className="  sm:mx-auto sm:w-full sm:max-w-sm">
+        <Card className=" bg-[#202020bd] border-none" >
           <CardHeader>
-            <CardTitle className="text-2xl">Register New User</CardTitle>
-            <CardDescription>Register new employee</CardDescription>
+            <CardTitle  className="text-2xl text-gray-300">Register New User</CardTitle>
+            <CardDescription >Register new employee</CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>
@@ -95,9 +90,9 @@ export default function Register() {
                   name="fullName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Full Name</FormLabel>
+                      <FormLabel className="text-gray-300">Full Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="George Devid" {...field} />
+                        <Input className="text-gray-300 bg-gray-800 border-none" placeholder="George Devid" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -110,9 +105,9 @@ export default function Register() {
                   name="userName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>User Name</FormLabel>
+                      <FormLabel className="text-gray-300">User Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Tgeorge" {...field} />
+                        <Input className="text-gray-300 bg-gray-800 border-none" placeholder="Tgeorge" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -125,16 +120,16 @@ export default function Register() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel className="text-gray-300">Password</FormLabel>
                       <FormControl>
-                        <Input type="password" placeholder="Enter Password" {...field} />
+                        <Input type="password" className="text-gray-300 bg-gray-800 border-none" placeholder="Enter Password" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full bg-[#FF7518]">
                   Register
                 </Button>
               </form>

@@ -49,11 +49,11 @@ export default function Users() {
     <NavigationButtons/>
       <div className="flex min-h-full flex-col justify-center px-6 py-16 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
-          <Card className="mt-10 bg-[#202020bd] border-none">
-            <CardHeader className="flex justify-between items-center">
-              <CardTitle className="text-2xl text-white">Users List</CardTitle>
+          <Card className=" bg-[#202020bd] border-none">
+            <CardHeader>
+              <CardTitle className="text-2xl text-left mb-8 text-white">Users List</CardTitle>
               <Link href="/register" passHref>
-                <Button className="!bg-[#FF7518] text-white" >
+                <Button className="!bg-[#FF7518] w-full  text-white" >
                   Register User
                 </Button>
               </Link>

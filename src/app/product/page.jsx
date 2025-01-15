@@ -103,9 +103,9 @@ export default function Product() {
       
             <div className="flex min-h-full flex-col justify-center px-6 py-16 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
-                    <Card className="mt-10 bg-[#202020bd] border-none">
+                    <Card className=" bg-[#202020bd] border-none">
                         <CardHeader>
-                            <CardTitle className="text-2xl text-gray-300">Product</CardTitle>
+                            <CardTitle className="text-2xl mb-8 text-gray-300">Product</CardTitle>
                             <AddProduct />
                         </CardHeader>
                         <CardContent>

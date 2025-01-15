@@ -75,29 +75,29 @@ return (
           <PlusCircleIcon /> Add Item
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[300px] max-w-[380px] bg-[#202020bd] rounded-xl top-[20rem]">
+      <DialogContent className="sm:max-w-[300px] max-w-[340px] backdrop-blur-md bg-[#20202066]  border-none rounded-xl top-60">
         <DialogHeader>
           <DialogTitle className="text-gray-300">Add Number</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="count" className="text-right">
+              <Label htmlFor="count" className="text-right text-gray-300">
                 Count
               </Label>
               <Input
                 id="count"
                 type="number"
+                className="text-gray-300 col-span-3 bg-gray-800 border-none"
                 value={count}
                 onChange={(e) => setCount(e.target.value)}
                 min="1"
-                className="col-span-3"
                 required
               />
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Save changes</Button>
+            <Button className="w-full bg-[#FF7518]" type="submit">Save changes</Button>
           </DialogFooter>
         </form>
       </DialogContent>

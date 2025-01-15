@@ -104,9 +104,11 @@ export default function ExpenseTracker() {
   return (
     <>
      <NavigationButtons/>
-      <Card className="max-w-4xl bg-[#202020bd] border-none mx-auto  mt-10 h-full p-6">
+     <div className="flex min-h-full flex-col justify-center px-6 py-16 lg:px-8">
+     <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
+      <Card className=" bg-[#202020bd] border-none   h-full ">
         <CardHeader>
-          <CardTitle  className="text-2xl text-gray-300">Expense Tracker</CardTitle>
+          <CardTitle  className="text-2xl mb-8 text-gray-300">Expense Tracker</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex gap-4 mb-4">
@@ -152,8 +154,8 @@ export default function ExpenseTracker() {
             </TableBody>
           </Table>
 
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogContent className="sm:max-w-[400px] max-w-[320px] backdrop-blur-md bg-[#20202066] border-none rounded-xl">
+          <Dialog open={isDialogOpen}  onOpenChange={setIsDialogOpen}>
+            <DialogContent className="sm:max-w-[400px] top-60 max-w-[320px] backdrop-blur-md bg-[#20202066] border-none rounded-xl">
               <DialogHeader>
                 <DialogTitle  className="text-gray-300">Edit Expense</DialogTitle>
               </DialogHeader>
@@ -182,6 +184,8 @@ export default function ExpenseTracker() {
           </Dialog>
         </CardContent>
       </Card>
+      </div>
+      </div>
     </>
   );
 }
