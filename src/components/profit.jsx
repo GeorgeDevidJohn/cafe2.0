@@ -14,8 +14,8 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function RevenueCard() {
-  const [totalRevenue, setTotalRevenue] = useState(null);
-  const [totalExpense, setTotalExpense] = useState(null);
+  const [totalRevenue, setTotalRevenue] = useState(0);
+  const [totalExpense, setTotalExpense] = useState(0);
   const [loading, setLoading] = useState(true);
 
   // Fetch total revenue data from the API
@@ -104,7 +104,8 @@ export default function RevenueCard() {
           <Skeleton className="h-10 w-full" />
         ) : (
           <div className="text-3xl  text-green-600 font-bold">
-            ${(totalRevenue?.toLocaleString("en-US", { minimumFractionDigits: 2 }) - totalExpense?.toLocaleString("en-US", { minimumFractionDigits: 2 })).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+           ${((totalRevenue ? totalRevenue : 0) - (totalExpense ? totalExpense : 0)).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+
           </div>
         )}
          <span className="mt-2 text-gray-200">Total Profit</span>
@@ -116,7 +117,12 @@ export default function RevenueCard() {
               <Skeleton className="h-10 w-full" />
             ) : (
               <div className="text-3xl  text-green-600 font-bold">
-                {  (((totalRevenue?.toLocaleString("en-US", { minimumFractionDigits: 2 }) - totalExpense?.toLocaleString("en-US", { minimumFractionDigits: 2 }))/totalRevenue?.toLocaleString("en-US", { minimumFractionDigits: 2 })) * 100).toLocaleString("en-US", { minimumFractionDigits: 2 })} %
+              { 
+  totalRevenue && totalRevenue !== 0 
+    ? (((totalRevenue - (totalExpense || 0)) / totalRevenue) * 100).toLocaleString("en-US", { minimumFractionDigits: 2 })
+    : "0.00"
+} %
+
               </div>
             )}
              <span className="mt-2 text-gray-200">Profit Percentage</span>
