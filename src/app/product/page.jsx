@@ -5,7 +5,7 @@ import Image from "next/image";
 import AddProduct from "@/components/addProduct";
 import AddItem from "@/components/addItem";
 import EditProduct from "@/components/editProduct";
-import { Check, Package, CupSoda } from "lucide-react";
+import { Check, Package, CupSoda,ShoppingCart } from "lucide-react";
 import {
     Card,
     CardContent,
@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import NavigationButtons from "@/components/nav";
+import { useRouter } from "next/navigation";
 
 const handleProductUpdate = (updatedProduct) => {
     setProducts((prevProducts) =>
@@ -40,6 +41,7 @@ export async function fetchProducts() {
 }
 
 export default function Product() {
+    const router = useRouter();
     const [products, setProducts] = React.useState([]);
 
     React.useEffect(() => {
@@ -55,6 +57,9 @@ export default function Product() {
         loadProducts();
     }, []);
 
+    const handleNavigate = () => {
+        router.push("/lists");
+      };
 
     async function updateProductStatus(productId, active) {
       try {
@@ -105,7 +110,12 @@ export default function Product() {
                 <div className="sm:mx-auto  sm:w-full sm:max-w-6xl">
                     <Card className=" bg-[#202020bd]  border-none">
                         <CardHeader>
+                            <div className="flex  justify-between">
                             <CardTitle className="text-2xl mb-8 text-gray-300">Product</CardTitle>
+                           <Button className="border-none 2xl text-[#FF7518]" onClick={handleNavigate}>
+                           <ShoppingCart/>
+    </Button>
+                            </div>
                             <AddProduct />
                         </CardHeader>
                         <CardContent>
