@@ -27,6 +27,7 @@ export async function POST(request) {
       productid,
       productName,
       count,
+      createdAt: new Date()
     });
 
     // Save the new sale to the database

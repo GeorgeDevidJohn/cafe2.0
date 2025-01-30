@@ -14,8 +14,10 @@ const SalesSchema = new mongoose.Schema(
         type: Number,
         required: true,
       },
-  },
-  { timestamps: true } // Automatically adds createdAt and updatedAt fields
+    createdAt:{
+      type:String
+    }  
+  } // Automatically adds createdAt and updatedAt fields
 );
 
 export default mongoose.models.Sales || mongoose.model("Sales", SalesSchema);

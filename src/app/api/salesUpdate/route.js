@@ -24,7 +24,7 @@ export async function PUT(request) {
     }
 
     const reqBody = await request.json();
-    const { count, productid } = reqBody;
+    const { count, productid,createdAt } = reqBody;
 
     if (count == null || isNaN(count) || count < 0) {
       return NextResponse.json(
@@ -52,7 +52,7 @@ export async function PUT(request) {
     // Update the sales count
     const updatedSale = await Sales.findByIdAndUpdate(
       saleid,
-      { count },
+      { count:count , createdAt :createdAt },
       { new: true } // Return the updated document
     );
 

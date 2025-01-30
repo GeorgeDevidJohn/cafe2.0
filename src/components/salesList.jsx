@@ -8,12 +8,12 @@ import { Edit, Pencil } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import getUser from "@/lib/getuser";
-
+import { DateTimePicker } from "@/components/ui/datetimepicker";
 export default function SalesComponent() {
   const [sales, setSales] = useState([]);
   const [selectedSale, setSelectedSale] = useState(null);
   const [newCount, setNewCount] = useState("");
-
+  const [selectedDate, setSelectedDate] = useState(null);
   // Fetch sales from the API
   useEffect(() => {
     async function fetchSales() {
@@ -35,6 +35,7 @@ export default function SalesComponent() {
   const handleEditTransaction = (sale) => {
     setSelectedSale(sale);
     setNewCount(sale.count || "");
+    setSelectedDate(sale.createdAt ? new Date(sale.createdAt) : new Date());
   };
 
   const handleDialogClose = () => {
@@ -56,7 +57,8 @@ export default function SalesComponent() {
         },
         body: JSON.stringify({
           count: Number(newCount),
-          productid: selectedSale.productid
+          productid: selectedSale.productid,
+          createdAt: selectedDate.toISOString()
         }),
       });
 
@@ -90,7 +92,7 @@ export default function SalesComponent() {
   
     const data = await response.json();
     console.log(data);
-    window.location.reload();
+   window.location.reload();
     }
   return (
     <div className="overflow-auto">
@@ -142,7 +144,25 @@ export default function SalesComponent() {
                 onChange={(e) => setNewCount(e.target.value)}
                 placeholder="Enter new count"
               />
+
+              
             </div>
+               {/* Date-Time Picker */}
+    <div className="flex flex-col">
+      <label className="text-gray-800">Select Date & Time</label>
+      {/* <Input
+        type="datetime-local"
+        value={selectedDate.toISOString().slice(0, 16)} // Format for input field
+        onChange={(e) => setSelectedDate(new Date(e.target.value))}
+      /> */}
+<DateTimePicker
+  value={selectedDate.toISOString().slice(0, 16)}
+  onChange={(date) => {
+    console.log("Selected Date:", date); // Debugging log
+    setSelectedDate(date);
+  }}
+/>
+      </div>
             <DialogFooter>
               <Button onClick={handleUpdateSale}>Update</Button>
             </DialogFooter>
