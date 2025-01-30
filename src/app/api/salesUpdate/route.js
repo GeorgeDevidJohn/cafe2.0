@@ -52,7 +52,7 @@ export async function PUT(request) {
     // Update the sales count
     const updatedSale = await Sales.findByIdAndUpdate(
       saleid,
-      { count:count , createdAt :createdAt },
+      { count:count , createdAt :new Date(createdAt) },
       { new: true } // Return the updated document
     );
 

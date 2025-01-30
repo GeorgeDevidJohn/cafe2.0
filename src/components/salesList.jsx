@@ -132,12 +132,12 @@ export default function SalesComponent() {
       {/* Dialog for editing sales count */}
       {selectedSale && (
         <Dialog open={!!selectedSale} onOpenChange={handleDialogClose}>
-          <DialogContent className="sm:max-w-[400px] p-4 top-[16rem] max-w-[340px] rounded-xl">
+          <DialogContent className="sm:max-w-[400px] p-4 top-[16rem] max-w-[340px] backdrop-blur-md bg-[#20202066]  border-none rounded-xl">
             <DialogHeader>
-              <DialogTitle>Edit Sale Count</DialogTitle>
+              <DialogTitle className="text-gray-300">Edit Sale Count</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
-              <p>Product: {selectedSale.productName}</p>
+              <p className="text-gray-300">Product: {selectedSale.productName}</p>
               <Input
                 type="number"
                 value={newCount}
@@ -149,7 +149,7 @@ export default function SalesComponent() {
             </div>
                {/* Date-Time Picker */}
     <div className="flex flex-col">
-      <label className="text-gray-800">Select Date & Time</label>
+      <label className="text-gray-300">Select Date & Time</label>
       {/* <Input
         type="datetime-local"
         value={selectedDate.toISOString().slice(0, 16)} // Format for input field
@@ -164,7 +164,7 @@ export default function SalesComponent() {
 />
       </div>
             <DialogFooter>
-              <Button onClick={handleUpdateSale}>Update</Button>
+              <Button className=" w-full bg-[#FF7518]" onClick={handleUpdateSale}>Update</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

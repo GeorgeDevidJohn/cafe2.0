@@ -15,7 +15,7 @@ const SalesSchema = new mongoose.Schema(
         required: true,
       },
     createdAt:{
-      type:String
+      type:Date
     }  
   } // Automatically adds createdAt and updatedAt fields
 );
