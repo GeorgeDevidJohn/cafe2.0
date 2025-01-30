@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import ExportSalesButton from "@/components/exportbutton";
 import {
   Card,
   CardContent,
@@ -184,7 +185,7 @@ export default function SalesPage() {
           </Card>
         ))}
       </div>
-
+      
       <div className="overflow-auto pb-10">
         <SalesComponent />
       </div>

@@ -140,6 +140,7 @@ export default function SalesComponent() {
               <p className="text-gray-300">Product: {selectedSale.productName}</p>
               <Input
                 type="number"
+                className="text-gray-300"
                 value={newCount}
                 onChange={(e) => setNewCount(e.target.value)}
                 placeholder="Enter new count"

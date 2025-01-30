@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { TrendingUp } from "lucide-react";
+import ExportSalesButton from "@/components/exportbutton";
 import { Area, AreaChart, XAxis, YAxis, CartesianGrid } from "recharts";
 import {
   Card,
@@ -90,6 +91,11 @@ export default function SalesChart() {
           HI {userData.fullName}!
         </span>
         <RevenueCard />
+        <div className="flex min-h-full flex-col justify-center px-6   lg:px-1">
+            <h2 className="text-l  font-bold">Sales Data</h2>
+           
+            <ExportSalesButton />
+          </div>
         <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
           <Card className="mt-4 border-none bg-[#202020bd]">
             <CardHeader>
@@ -155,6 +161,7 @@ export default function SalesChart() {
           </Card>
         </div>
       </div>
+   
       <div className="flex min-h-full flex-col justify-center px-6   lg:px-1">
         <div className="sm:mx-auto sm:w-full sm:max-w-6xl">
           <ProductMonth />
