@@ -11,6 +11,9 @@ export async function GET(req) {
     const startDate = searchParams.get("startDate");
     const endDate = searchParams.get("endDate");
 
+    // ✅ Get current date in YYYY-MM-DD format
+    const currentDate = new Date().toISOString().split("T")[0];
+
     // ✅ Build query filter based on provided date range
     let filter = {};
     if (startDate && endDate) {
@@ -47,23 +50,53 @@ export async function GET(req) {
     const workbook = XLSX.utils.book_new();
     let worksheet = XLSX.utils.json_to_sheet([]);
 
-    // ✅ Add Heading Row with Total Sales
+    // ✅ Add Title Row
     XLSX.utils.sheet_add_aoa(worksheet, [
-      [`Total Sales from ${startDate} to ${endDate}: Total Sale ${totalSales}`], // Heading
+      [`Total Sales from ${startDate} to ${endDate}: Total Sale ${totalSales}`], // Title row
       [], // Empty row for spacing
       ["Product Name", "Sold Count", "Date"], // Table headers
-    ]);
+    ], { origin: "A1" });
 
     // ✅ Append Sales Data Below the Heading
     XLSX.utils.sheet_add_json(worksheet, salesData, { origin: "A4", skipHeader: true });
 
+    // ✅ Adjust column widths for better visibility
+    worksheet["!cols"] = [
+      { wpx: 250 }, // Width for "Product Name"
+      { wpx: 120 }, // Width for "Sold Count"
+      { wpx: 200 }, // Width for "Date"
+    ];
+
+    // ✅ Merge title across 3 columns to make it centered
+    worksheet["!merges"] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 2 } }];
+
+    // ✅ Apply styles to specific cells
+    if (!worksheet["A1"]) worksheet["A1"] = {};
+    worksheet["A1"].s = {
+      font: { bold: true, sz: 24, color: { rgb: "000000" } }, // Larger, bold, black title
+      alignment: { horizontal: "center" }, // Center align
+    };
+
+    // ✅ Apply styles for the header row
+    ["A3", "B3", "C3"].forEach((cell) => {
+      if (!worksheet[cell]) worksheet[cell] = {};
+      worksheet[cell].s = {
+        font: { bold: true, sz: 14, color: { rgb: "000000" } }, // Bold headers
+        alignment: { horizontal: "center" },
+        fill: { fgColor: { rgb: "D3D3D3" } }, // Light gray background
+      };
+    });
+
     XLSX.utils.book_append_sheet(workbook, worksheet, "Sales Data");
+
+    // ✅ Generate dynamic filename
+    const filename = `sales-data_${currentDate}_${startDate}_to_${endDate}.xlsx`;
 
     const buffer = XLSX.write(workbook, { bookType: "xlsx", type: "buffer" });
 
     return new Response(buffer, {
       headers: {
-        "Content-Disposition": `attachment; filename=sales-data_${startDate}_to_${endDate}.xlsx`,
+        "Content-Disposition": `attachment; filename=${filename}`,
         "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       },
     });
