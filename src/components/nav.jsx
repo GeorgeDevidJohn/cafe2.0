@@ -8,6 +8,7 @@ import {
   User,
   Package,
   Logs,
+  HandCoins,
   CircleDollarSign,
   LucideLogOut,
 } from "lucide-react";
@@ -69,6 +70,12 @@ export default function NavigationButtons({ triggerUpdate }) {
                     <Package
                       className="text-[#FF7518] hover:text-white"
                       title="Products"
+                    />
+                  </Link>
+                  <Link href="/itemprofit" passHref>
+                    <HandCoins
+                      className="text-[#FF7518] hover:text-white"
+                      title="Profits"
                     />
                   </Link>
                   <Link href="/logs" passHref>

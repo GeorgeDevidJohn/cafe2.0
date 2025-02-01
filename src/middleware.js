@@ -4,9 +4,9 @@ import { SignJWT, jwtVerify } from 'jose'
 import { cookies } from 'next/headers'
  
 // 1. Specify protected and public routes
-const protectedRoutes = ['/report', '/users', '/product', '/logs','/expence', '/register','/lists']
+const protectedRoutes = ['/report', '/users', '/product', '/logs','/expence','/itemprofit', '/register','/lists']
 const employerRoutes = ['/lists']
-const adminRoutes = ['/report', '/users', '/product', '/logs','/expence', '/register']
+const adminRoutes = ['/report', '/users', '/product', '/logs','/expence', '/register','/itemprofit']
 const publicRoutes = ['/login', '/']
 
 
