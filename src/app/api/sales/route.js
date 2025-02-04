@@ -52,11 +52,18 @@ export async function POST(request) {
  */
 export async function GET() {
   try {
-    // Fetch all sales from the database
-    const sales = await Sales.find();
+    // Get the first and last date of the current month
+    const now = new Date();
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
+
+    // Fetch sales for the current month
+    const sales = await Sales.find({
+      createdAt: { $gte: startOfMonth, $lte: endOfMonth },
+    });
 
     return NextResponse.json({
-      message: "Sales fetched successfully",
+      message: "Sales for the current month fetched successfully",
       success: true,
       sales: sales.map((sale) => ({
         id: sale._id,

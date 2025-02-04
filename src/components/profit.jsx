@@ -12,32 +12,14 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { object } from "zod";
 
 export default function RevenueCard() {
-  const [totalRevenue, setTotalRevenue] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
+  const [RevExpense,setindTotalExpense] = useState(object);
   const [loading, setLoading] = useState(true);
 
-  // Fetch total revenue data from the API
-  const fetchRevenueData = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch("/api/revenue", {
-        method: "GET",
-      });
-      const data = await response.json();
 
-      if (data.success) {
-        setTotalRevenue(data.totalRevenue);
-      } else {
-        console.error("Failed to fetch revenue data:", data.error);
-      }
-    } catch (error) {
-      console.error("Error fetching revenue data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const fetchExpenceData = async () => {
     setLoading(true);
@@ -59,10 +41,53 @@ export default function RevenueCard() {
     }
   };
 
+  const fetchRevenue = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("/api/revenue", {
+        method: "GET",
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        console.log("this is new :" + data.totalExpense )
+      
+      } else {
+        console.error("Failed to fetch revenue data:", data.error);
+      }
+    } catch (error) {
+      console.error("Error fetching revenue data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchIndividualExpenceData = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("/api/intexpense", {
+        method: "GET",
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        console.log("this is new :" + data.totalExpense )
+        setindTotalExpense(data);
+      } else {
+        console.error("Failed to fetch revenue data:", data.error);
+      }
+    } catch (error) {
+      console.error("Error fetching revenue data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Fetch data on component mount
   useEffect(() => {
-    fetchRevenueData();
+    fetchRevenue();
     fetchExpenceData();
+    fetchIndividualExpenceData();
   }, []);
 
   return (
@@ -80,7 +105,8 @@ export default function RevenueCard() {
           <Skeleton className="h-10 w-full" />
         ) : (
           <div className="text-3xl  text-green-600 font-bold">
-            ${totalRevenue?.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+            {/* {RevExpense.totalRevenue} */}
+            ${RevExpense.totalRevenue?.toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </div>
         )}
          <span className="mt-2 text-gray-200">Total Revenue</span>
@@ -91,7 +117,9 @@ export default function RevenueCard() {
           <Skeleton className="h-10  w-full" />
         ) : (
           <div className="text-3xl text-red-600 font-bold">
-            ${totalExpense?.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+        ${(Number(totalExpense) + Number(RevExpense.totalExpense))?.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+
+            {/* {RevExpense.totalExpense} */}
           </div>
         )}
          <span className="mt-2 text-gray-200">Total Expense</span>
@@ -104,7 +132,7 @@ export default function RevenueCard() {
           <Skeleton className="h-10 w-full" />
         ) : (
           <div className="text-3xl  text-green-600 font-bold">
-           ${((totalRevenue ? totalRevenue : 0) - (totalExpense ? totalExpense : 0)).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+           ${((Number(RevExpense.totalRevenue) ? Number(RevExpense.totalRevenue) : 0) - (Number(totalExpense) + Number(RevExpense.totalExpense) ? Number(totalExpense) + Number(RevExpense.totalExpense) : 0)).toLocaleString("en-US", { minimumFractionDigits: 2 })}
 
           </div>
         )}
@@ -117,11 +145,13 @@ export default function RevenueCard() {
               <Skeleton className="h-10 w-full" />
             ) : (
               <div className="text-3xl  text-green-600 font-bold">
-              { 
-  totalRevenue && totalRevenue !== 0 
-    ? (((totalRevenue - (totalExpense || 0)) / totalRevenue) * 100).toLocaleString("en-US", { minimumFractionDigits: 2 })
+            { 
+  Number(RevExpense.totalRevenue) && Number(RevExpense.totalRevenue) !== 0 
+    ? (((Number(RevExpense.totalRevenue) - (Number(totalExpense) + Number(RevExpense.totalExpense) || 0)) / Number(RevExpense.totalRevenue)) * 100)
+        .toLocaleString("en-US", { minimumFractionDigits: 2 })
     : "0.00"
 } %
+
 
               </div>
             )}
@@ -133,7 +163,7 @@ export default function RevenueCard() {
         <div className="flex gap-2 font-medium leading-none text-gray-200">
           Trending up this month <TrendingUp className="h-5 w-5 text-green-500" />
         </div>
-        <Button className="!bg-[#FF7518]" onClick={fetchRevenueData}>
+        <Button className="!bg-[#FF7518]" onClick={fetchIndividualExpenceData}>
           Refresh
         </Button>
       </CardFooter>

@@ -72,7 +72,7 @@ export default function NavigationButtons({ triggerUpdate }) {
                       title="Products"
                     />
                   </Link>
-                  <Link href="/Itemprofit" passHref>
+                  <Link href="/monthprofit" passHref>
                     <HandCoins
                       className="text-[#FF7518] hover:text-white"
                       title="Profits"
